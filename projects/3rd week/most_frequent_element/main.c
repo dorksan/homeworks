@@ -101,7 +101,7 @@ int main()
         printf("Ошибка");
         return -1;
     }
-    srand(time(NULL));
+    srand((unsigned)time(NULL));
     printf("Введите длину массива: ");
     int size = 0;
     scanf_s("%d", &size);
