@@ -74,9 +74,10 @@ bool testQSort(void)
     {
         if (array[i] != sortArray[i] || array1[i] != sortArray[i])
         {
-            return 0;
+            return false;
         }
     }
+    return true;
 }
 
 bool testMostFrequentElementSearch(void)
