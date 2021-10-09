@@ -110,7 +110,8 @@ int main()
     printf("\nИсходный массив: ");
     for (int i = 0; i < size; i++)
     {
-        printf("%d ", array[i] = rand() % 100);
+        array[i] = rand() % 100;
+        printf("%d ", array[i]);
     }
     qSort(array, size);
     printf("\nCамый частый элемент: %d", mostFrequentElementSearch(array, size));
