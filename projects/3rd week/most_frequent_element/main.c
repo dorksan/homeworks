@@ -43,7 +43,7 @@ void qSort(int* array, int size)
         {
             left++;
         }
-        while (array[right] >= pivot)
+        while (array[right] > pivot)
         {
             right--;
         }
