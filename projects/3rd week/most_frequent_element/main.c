@@ -36,20 +36,20 @@ void qSort(int* array, int size)
 {
     int left = 0;
     int right = size - 1;
-    int pivot = array[(left + right) / 2];
+    const int pivot = array[(left + right) / 2];
     while (left <= right)
     {
         while (array[left] < pivot)
         {
             left++;
         }
-        while (array[right] > pivot)
+        while (array[right] >= pivot)
         {
             right--;
         }
         if (left <= right)
         {
-            int temp = array[left];
+            const int temp = array[left];
             array[left] = array[right];
             array[right] = temp;
             left++;
