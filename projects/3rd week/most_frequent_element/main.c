@@ -3,8 +3,9 @@
 #include <malloc.h>
 #include <stdlib.h>
 #include <time.h>
-#define SIZEONE 25
-#define SIZETWO 10
+
+#define SIZE_ONE 25
+#define SIZE_TWO 10
 
 int mostFrequentElementSearch(int* array, int size)
 {
@@ -67,12 +68,12 @@ void qSort(int* array, int size)
 
 bool testQSort(void)
 {
-    int array[SIZEONE] = { 17, 34, 121, 18, 61, 58, 235, 104, 674, 19, 38, 33, 410, 20, 9, 12, 4, 11, 6, 27, 1, 42, 8, 31, 26 };
-    int array1[SIZEONE] = { 1, 4, 6, 8, 9, 11, 12, 17, 18, 19, 20, 26, 27, 31, 33, 34, 38, 42, 58, 61, 104, 121, 235, 410, 674 };
-    int sortArray[SIZEONE] = { 1, 4, 6, 8, 9, 11, 12, 17, 18, 19, 20, 26, 27, 31, 33, 34, 38, 42, 58, 61, 104, 121, 235, 410, 674 };
-    qSort(array, SIZEONE);
-    qSort(array1, SIZEONE);
-    for (int i = 0; i < SIZEONE; i++)
+    int array[SIZE_ONE] = { 17, 34, 121, 18, 61, 58, 235, 104, 674, 19, 38, 33, 410, 20, 9, 12, 4, 11, 6, 27, 1, 42, 8, 31, 26 };
+    int array1[SIZE_ONE] = { 1, 4, 6, 8, 9, 11, 12, 17, 18, 19, 20, 26, 27, 31, 33, 34, 38, 42, 58, 61, 104, 121, 235, 410, 674 };
+    int sortArray[SIZE_ONE] = { 1, 4, 6, 8, 9, 11, 12, 17, 18, 19, 20, 26, 27, 31, 33, 34, 38, 42, 58, 61, 104, 121, 235, 410, 674 };
+    qSort(array, SIZE_ONE);
+    qSort(array1, SIZE_ONE);
+    for (int i = 0; i < SIZE_ONE; i++)
     {
         if (array[i] != sortArray[i] || array1[i] != sortArray[i])
         {
@@ -84,14 +85,14 @@ bool testQSort(void)
 
 bool testMostFrequentElementSearch(void)
 {
-    int array[SIZETWO] = { 1, 1, 3, 7, 8, 8, 8, 11, 11, 11 };
-    int array1[SIZETWO] = { 1, 2, 2, 2, 3, 4, 5, 6, 7, 8 };
-    int identicalElements[SIZETWO] = { 5, 5, 5, 5, 5, 5, 5, 5, 5, 5 };
-    int differentElements[SIZETWO] = { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 };
-    return (mostFrequentElementSearch(array, SIZETWO) == 8 &&
-        mostFrequentElementSearch(array1, SIZETWO) == 2 &&
-        mostFrequentElementSearch(identicalElements, SIZETWO) == 5 &&
-        mostFrequentElementSearch(differentElements, SIZETWO) == 1);
+    int array[SIZE_TWO] = { 1, 1, 3, 7, 8, 8, 8, 11, 11, 11 };
+    int array1[SIZE_TWO] = { 1, 2, 2, 2, 3, 4, 5, 6, 7, 8 };
+    int identicalElements[SIZE_TWO] = { 5, 5, 5, 5, 5, 5, 5, 5, 5, 5 };
+    int differentElements[SIZE_TWO] = { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 };
+    return (mostFrequentElementSearch(array, SIZE_TWO) == 8 &&
+        mostFrequentElementSearch(array1, SIZE_TWO) == 2 &&
+        mostFrequentElementSearch(identicalElements, SIZE_TWO) == 5 &&
+        mostFrequentElementSearch(differentElements, SIZE_TWO) == 1);
 }
 
 int main()
