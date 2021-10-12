@@ -11,7 +11,7 @@ void insertionSort(int* array, int left, int right)
     for (int i = left + 1; i < right; i++)
     {
         int j = i;
-        while (j > left && (j - 1) > j)
+        while (j > left && array[j - 1] > array[j])
         {
             const int temp = array[j - 1];
             array[j - 1] = array[j];
@@ -59,7 +59,7 @@ void qSort(int* array, int size)
     }
 }
 
-bool test(void)
+bool testQSort(void)
 {
     int array[SIZE] = { 17, 34, 121, 18, 61, 58, 235, 104, 674, 19, 38, 33, 410, 20, 9, 12, 4, 11, 6, 27, 1, 42, 8, 31, 26 };
     int array1[SIZE] = { 1, 4, 6, 8, 9, 11, 12, 17, 18, 19, 20, 26, 27, 31, 33, 34, 38, 42, 58, 61, 104, 121, 235, 410, 674 };
@@ -70,14 +70,32 @@ bool test(void)
     {
         if (array[i] != sortArray[i] || array1[i] != sortArray[i])
         {
-            return 0;
+            return false;
         }
     }
+    return true;
+}
+
+bool testInsertionSort(void)
+{
+    int array[SIZE] = { 17, 34, 121, 18, 61, 58, 235, 104, 674, 19, 38, 33, 410, 20, 9, 12, 4, 11, 6, 27, 1, 42, 8, 31, 26 };
+    int array1[SIZE] = { 1, 4, 6, 8, 9, 11, 12, 17, 18, 19, 20, 26, 27, 31, 33, 34, 38, 42, 58, 61, 104, 121, 235, 410, 674 };
+    int sortArray[SIZE] = { 1, 4, 6, 8, 9, 11, 12, 17, 18, 19, 20, 26, 27, 31, 33, 34, 38, 42, 58, 61, 104, 121, 235, 410, 674 };
+    insertionSort(array, 0, SIZE);
+    insertionSort(array1, 0, SIZE);
+    for (int i = 0; i < SIZE; i++)
+    {
+        if (array[i] != sortArray[i] || array1[i] != sortArray[i])
+        {
+            return false;
+        }
+    }
+    return true;
 }
 
 int main()
 {
-    if (!test())
+    if (!testQSort() || !testInsertionSort())
     {
         printf("Ошибка");
         return -1;
