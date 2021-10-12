@@ -87,6 +87,11 @@ int main()
     int size = 0;
     scanf_s("%d", &size);
     int* array = calloc(size, sizeof(int));
+    if (array == NULL)
+    {
+        printf("Ошибка создания массива");
+        return -1;
+    }
     printf("\nИсходный массив: ");
     for (int i = 0; i < size; i++)
     {
