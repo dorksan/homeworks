@@ -4,6 +4,8 @@
 #include <stdlib.h>
 #include <time.h>
 
+#define SIZE 25
+
 void insertionSort(int* array, int left, int right)
 {
     for (int i = left + 1; i < right; i++)
@@ -11,7 +13,7 @@ void insertionSort(int* array, int left, int right)
         int j = i;
         while (j > left && (j - 1) > j)
         {
-            int temp = array[j - 1];
+            const int temp = array[j - 1];
             array[j - 1] = array[j];
             array[j] = temp;
             j--;
@@ -59,12 +61,12 @@ void qSort(int* array, int size)
 
 bool test(void)
 {
-    int array[25] = { 17, 34, 121, 18, 61, 58, 235, 104, 674, 19, 38, 33, 410, 20, 9, 12, 4, 11, 6, 27, 1, 42, 8, 31, 26 };
-    int array1[25] = { 1, 4, 6, 8, 9, 11, 12, 17, 18, 19, 20, 26, 27, 31, 33, 34, 38, 42, 58, 61, 104, 121, 235, 410, 674 };
-    int sortArray[25] = { 1, 4, 6, 8, 9, 11, 12, 17, 18, 19, 20, 26, 27, 31, 33, 34, 38, 42, 58, 61, 104, 121, 235, 410, 674 };
-    qSort(array, 25);
-    qSort(array1, 25);
-    for (int i = 0; i < 25; i++)
+    int array[SIZE] = { 17, 34, 121, 18, 61, 58, 235, 104, 674, 19, 38, 33, 410, 20, 9, 12, 4, 11, 6, 27, 1, 42, 8, 31, 26 };
+    int array1[SIZE] = { 1, 4, 6, 8, 9, 11, 12, 17, 18, 19, 20, 26, 27, 31, 33, 34, 38, 42, 58, 61, 104, 121, 235, 410, 674 };
+    int sortArray[SIZE] = { 1, 4, 6, 8, 9, 11, 12, 17, 18, 19, 20, 26, 27, 31, 33, 34, 38, 42, 58, 61, 104, 121, 235, 410, 674 };
+    qSort(array, SIZE);
+    qSort(array1, SIZE);
+    for (int i = 0; i < SIZE; i++)
     {
         if (array[i] != sortArray[i] || array1[i] != sortArray[i])
         {
