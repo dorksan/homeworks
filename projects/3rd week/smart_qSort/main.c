@@ -26,9 +26,10 @@ void qSort(int* array, int size)
     int left = 0;
     int right = size - 1;
     const int pivot = array[(left + right) / 2];
-    if ((right - left) < 10)
+    if (right - left < 10)
     {
-        insertionSort(array, left, right);
+        insertionSort(array, left, right + 1);
+        return;
     }
     while (left <= right)
     {
@@ -95,7 +96,7 @@ bool testInsertionSort(void)
 
 int main()
 {
-    if (!testQSort() || !testInsertionSort())
+    if (!testInsertionSort() || !testQSort())
     {
         printf("Ошибка");
         return -1;
@@ -113,7 +114,8 @@ int main()
     printf("\nИсходный массив: ");
     for (int i = 0; i < size; i++)
     {
-        printf("%d ", array[i] = rand() % 10000);
+        array[i] = rand() % 10000;
+        printf("%d ", array[i]);
     }
     qSort(array, size);
     printf("\nОтсортированный массив: ");
