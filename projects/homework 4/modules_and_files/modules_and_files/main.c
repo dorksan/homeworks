@@ -5,6 +5,7 @@
 #include <time.h>
 #include <stdbool.h>
 
+#define SIZE 100
 #define SIZE_TWO 10
 
 int mostFrequentElementSearch(int* array, int size)
@@ -51,39 +52,20 @@ int main()
         printf("Ошибка");
         return -1;
     }
-    srand((unsigned)time(NULL));
-    printf("Введите длину массива: ");
-    int size = 0;
-    scanf_s("%d", &size);
-    int* array = calloc(size, sizeof(int));
-    FILE* fileOut = fopen("arrayFile.txt", "w");
-    if (fileOut == NULL)
-    {
-        printf("Файл не найден");
-        return -1;
-    }
-    printf("\nИсходный массив: ");
-    for (int i = 0; i < size; i++)
-    {
-        array[i] = rand() % 10;
-        fprintf(fileOut, "%d ", array[i]);
-        printf("%d ", array[i]);
-    }
-    fclose(fileOut);
     FILE* fileIn = fopen("arrayFile.txt", "r");
     if (fileIn == NULL)
     {
         printf("Файл не найден");
         return -1;
     }
-    int* newArray = (int*)malloc(size * sizeof(int));
-    for (int i = 0; i < size; i++)
+    int* array = calloc(SIZE, sizeof(int));
+    for (int i = 0; i < SIZE; i++)
     {
-        fscanf_s(fileIn, "%d ", &newArray[i]);
+        fscanf_s(fileIn, "%d ", &array[i]);
+        printf("%d ", array[i]);
     }
-    qSort(newArray, size);
-    printf("\nCамый частый элемент: %d", mostFrequentElementSearch(newArray, size));
+    qSort(array, SIZE);
+    printf("\nCамый частый элемент: %d", mostFrequentElementSearch(array, SIZE));
     fclose(fileIn);
     free(array);
-    free(newArray);
 }
