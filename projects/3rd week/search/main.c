@@ -83,7 +83,7 @@ bool testQSort(void)
 
 bool testBinarySearch()
 {
-    int array[TEST_TWO] = { 1, 3, 7, 8, 12, 19, 26, 34, 42, 51 };
+    int array[TEST_TWO] = { 1, 3, 7, 8, 12, 19, 26, 31, 42, 51 };
     return binarySearch(array, 3, TEST_TWO) == 1 && binarySearch(array, 11, TEST_TWO) == -1;
 }
 
