@@ -4,9 +4,6 @@
 #include <stdlib.h>
 #include <time.h>
 
-#define TEST_ONE 25
-#define TEST_TWO 10
-
 void qSort(int* array, int size)
 {
     int left = 0;
@@ -67,12 +64,12 @@ int binarySearch(int* array, int number, int size)
 
 bool testQSort(void)
 {
-    int array[TEST_ONE] = { 17, 34, 121, 18, 61, 58, 235, 104, 674, 19, 38, 33, 410, 20, 9, 12, 4, 11, 6, 27, 1, 42, 8, 31, 26 };
-    int array1[TEST_ONE] = { 1, 4, 6, 8, 9, 11, 12, 17, 18, 19, 20, 26, 27, 31, 33, 34, 38, 42, 58, 61, 104, 121, 235, 410, 674 };
-    int sortArray[TEST_ONE] = { 1, 4, 6, 8, 9, 11, 12, 17, 18, 19, 20, 26, 27, 31, 33, 34, 38, 42, 58, 61, 104, 121, 235, 410, 674 };
-    qSort(array, TEST_ONE);
-    qSort(array1, TEST_ONE);
-    for (int i = 0; i < TEST_ONE; i++)
+    int array[25] = { 17, 34, 121, 18, 61, 58, 235, 104, 674, 19, 38, 33, 410, 20, 9, 12, 4, 11, 6, 27, 1, 42, 8, 31, 26 };
+    int array1[25] = { 1, 4, 6, 8, 9, 11, 12, 17, 18, 19, 20, 26, 27, 31, 33, 34, 38, 42, 58, 61, 104, 121, 235, 410, 674 };
+    int sortArray[25] = { 1, 4, 6, 8, 9, 11, 12, 17, 18, 19, 20, 26, 27, 31, 33, 34, 38, 42, 58, 61, 104, 121, 235, 410, 674 };
+    qSort(array, 25);
+    qSort(array1, 25);
+    for (int i = 0; i < 25; i++)
     {
         if (array[i] != sortArray[i] || array1[i] != sortArray[i])
         {
@@ -83,8 +80,8 @@ bool testQSort(void)
 
 bool testBinarySearch()
 {
-    int array[TEST_TWO] = { 1, 3, 7, 8, 12, 19, 26, 34, 42, 51 };
-    return binarySearch(array, 3, TEST_TWO) == 3 && binarySearch(array, 11, TEST_TWO) == 0;
+    int array[10] = { 1, 3, 7, 8, 12, 19, 26, 34, 42, 51 };
+    return binarySearch(array, 3, 10) == 3 && binarySearch(array, 11, 10) == 0;
 }
 
 int main()
