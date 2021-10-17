@@ -141,7 +141,17 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="binaryAddition.c" />
+    <ClCompile Include="decimalToBinary.c" />
     <ClCompile Include="main.c" />
+    <ClCompile Include="testBinaryAddition.c" />
+    <ClCompile Include="testDecimalToBinary.c" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="binaryAddition.h" />
+    <ClInclude Include="decimalToBinary.h" />
+    <ClInclude Include="testBinaryAddition.h" />
+    <ClInclude Include="testDecimalToBinary.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
