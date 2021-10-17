@@ -1,42 +1,44 @@
 #include <stdio.h>
-#include <math.h>
 #include <stdbool.h>
+#include <malloc.h>
 #include <stdlib.h>
 
-#define SIZE 4
+#define SIZE 8
 
-void decimalToBinary(int number, int* array, int size)
+void decimalToBinary(int number, int* array)
 {
-    int decimalNumber = abs(number);
-    while (decimalNumber != 0)
+    int decimalNumber = number;
+    int mask = 0b10000000;
+    for (int i = 0; i < SIZE; i++)
     {
-        for (int i = 0; i < size; i++)
-        {
-            if (decimalNumber % 2 == 0)
-            {
-                array[i] = 0;
-            }
-            else
-            {
-                array[i] = 1;
-            }
-            decimalNumber /= 2;
-        }
+        array[i] = ((decimalNumber & mask) ? 1 : 0);
+        mask = mask >> 1;
     }
+
 }
 
-void binaryAddition(int* array1, int* array2, int* array3, int size)
+void binaryAddition(int* array1, int* array2, int* array3)
 {
     int temp = 0;
-    for (int i = 0; i < size+1; i++)
+    for (int i = SIZE; i > 0; i--)
     {
-        temp = array1[i] + array2[i] + temp;
-        if (temp == 2)
+        int sum = array1[i] + array2[i] + temp;
+        if (sum == 0)
+        {
+            array3[i] = 0;
+            temp = 0;
+        }
+        if (sum == 1)
+        {
+            array3[i] = 1;
+            temp = 0;
+        }
+        if (sum == 2)
         {
             array3[i] = 0;
             temp = 1;
         }
-        if (temp == 3)
+        if (sum == 3)
         {
             array3[i] = 1;
             temp = 1;
@@ -46,15 +48,26 @@ void binaryAddition(int* array1, int* array2, int* array3, int size)
 
 bool test(void)
 {
-    int arrayTest15[SIZE] = { 0, 0, 0, 0 };
-    int arrayTest8[SIZE] = { 0, 0, 0, 0 };
-    int array15[SIZE] = { 1, 1, 1, 1 };
-    int array8[SIZE] = { 0, 0, 0, 1 };
+    int arrayTest15[SIZE] = { 0, 0, 0, 0, 0, 0, 0, 0 };
+    int arrayTest8[SIZE] = { 0, 0, 0, 0, 0, 0, 0, 0 };
+    int arrayTest5[SIZE] = { 0, 0, 0, 0, 0, 0, 0, 0 };
+    int arrayTestMinus5[SIZE] = { 0, 0, 0, 0, 0, 0, 0, 0 };
+    int arrayTest0[SIZE] = { 0, 0, 0, 0, 0, 0, 0, 0 };
+    int array15[SIZE] = { 0, 0, 0, 0, 1, 1, 1, 1 };
+    int array8[SIZE] = { 0, 0, 0, 0, 1, 0, 0, 0};
+    int array5[SIZE] = { 0, 0, 0, 0, 0, 1, 0, 1 };
+    int arrayMinus5[SIZE] = { 1, 1, 1, 1, 1, 0, 1, 1 };
+    int array0[SIZE] = { 0, 0, 0, 0, 0, 0, 0, 0 };
     decimalToBinary(15, arrayTest15, SIZE);
     decimalToBinary(8, arrayTest8, SIZE);
+    decimalToBinary(5, arrayTest5, SIZE);
+    decimalToBinary(-5, arrayTestMinus5, SIZE);
+    decimalToBinary(0, arrayTest0, SIZE);
     for (int i = 0; i < SIZE; i++)
     {
-        if (arrayTest15[i] != array15[i] || arrayTest8[i] != array8[i])
+        if (arrayTest15[i] != array15[i] || arrayTest8[i] != array8[i] ||
+            arrayTest5[i] != array5[i] || arrayTestMinus5[i] != arrayMinus5[i] ||
+            arrayTest0[i] != array0[i])
         {
             return false;
         }
@@ -75,31 +88,25 @@ int main()
     int secondNumber = 0;
     printf("Введите второе число: ");
     scanf_s("%d", &secondNumber);
-    const int sizeFirst = log2(firstNumber) + 1;
-    int* arrayFirst = calloc(sizeFirst, sizeof(int));
-    decimalToBinary(firstNumber, arrayFirst, sizeFirst);
+    int firstArray[SIZE] = { 0 };
+    decimalToBinary(firstNumber, firstArray);
     printf("\nДвоичное представление первого числа: ");
-    for (int i = 0; i < sizeFirst; i++)
+    for (int i = 0; i < SIZE; i++)
     {
-        printf("%d", arrayFirst[sizeFirst - i - 1]);
+        printf("%d", firstArray[i]);
     }
-    const int sizeSecond = log2(secondNumber) + 1;
-    int* arraySecond = calloc(sizeSecond, sizeof(int));
-    decimalToBinary(secondNumber, arraySecond, sizeSecond);
+    int secondArray[SIZE] = { 0 };
+    decimalToBinary(secondNumber, secondArray);
     printf("\nДвоичное представление второго числа: ");
-    for (int i = 0; i < sizeSecond; i++)
+    for (int i = 0; i < SIZE; i++)
     {
-        printf("%d", arraySecond[sizeSecond - i - 1]);
+        printf("%d", secondArray[i]);
     }
-    int maxSize = max(sizeFirst, sizeSecond);
-    int* arrayThird = calloc(maxSize, sizeof(int));
-    binaryAddition(arrayFirst, arraySecond, arrayThird, maxSize);
+    int sum[SIZE] = { 0 };
+    binaryAddition(firstArray, secondArray, sum);
     printf("\nСумма двух чисел: ");
-    for (int i = 0; i < maxSize; i++)
+    for (int i = 0; i < SIZE; i++)
     {
-        printf("%d", arrayThird[i]);
+        printf("%d", sum[i]);
     }
-    free(arrayFirst);
-    free(arraySecond);
-    free(arrayThird);
 }
