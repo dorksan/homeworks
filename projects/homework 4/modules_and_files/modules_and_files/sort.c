@@ -1,5 +1,4 @@
 #include "sort.h"
-#include <stdbool.h>
 
 void qSort(int* array, int size)
 {

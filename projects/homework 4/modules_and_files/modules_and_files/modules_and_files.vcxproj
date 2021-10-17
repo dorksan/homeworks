@@ -142,12 +142,16 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="main.c" />
+    <ClCompile Include="mostFrequentElementSearch.c" />
     <ClCompile Include="sort.c" />
-    <ClCompile Include="test.c" />
+    <ClCompile Include="testQSort.c" />
+    <ClCompile Include="testMostFrequentElementSearch.c" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="mostFrequentElementSearch.h" />
     <ClInclude Include="sort.h" />
-    <ClInclude Include="test.h" />
+    <ClInclude Include="testMostFrequentElementSearch.h" />
+    <ClInclude Include="testQSort.h" />
   </ItemGroup>
   <ItemGroup>
     <Text Include="arrayFile.txt" />

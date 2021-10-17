@@ -21,8 +21,14 @@
     <ClCompile Include="sort.c">
       <Filter>Исходные файлы</Filter>
     </ClCompile>
-    <ClCompile Include="test.c">
-      <Filter>Файлы заголовков</Filter>
+    <ClCompile Include="testQSort.c">
+      <Filter>Исходные файлы</Filter>
+    </ClCompile>
+    <ClCompile Include="testMostFrequentElementSearch.c">
+      <Filter>Исходные файлы</Filter>
+    </ClCompile>
+    <ClCompile Include="mostFrequentElementSearch.c">
+      <Filter>Исходные файлы</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -34,8 +40,14 @@
     <ClInclude Include="sort.h">
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
-    <ClInclude Include="test.h">
-      <Filter>Исходные файлы</Filter>
+    <ClInclude Include="testQSort.h">
+      <Filter>Файлы заголовков</Filter>
+    </ClInclude>
+    <ClInclude Include="testMostFrequentElementSearch.h">
+      <Filter>Файлы заголовков</Filter>
+    </ClInclude>
+    <ClInclude Include="mostFrequentElementSearch.h">
+      <Filter>Файлы заголовков</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
