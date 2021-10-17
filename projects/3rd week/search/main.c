@@ -45,9 +45,10 @@ int binarySearch(int* array, int number, int size)
 {
     int left = 0;
     int right = size - 1;
+    int middle = 0;
     while (left <= right)
     {
-        int middle = (left + right) / 2;
+        middle = (left + right) / 2;
         if (number < array[middle])
         {
             right = middle - 1;
@@ -101,8 +102,7 @@ int main()
     int* array = calloc(n, sizeof(int));
     for (int i = 0; i < n; i++)
     {
-        array[i] = rand() % 100;
-        printf("%d ", array[i]);
+        printf("%d ", array[i] = rand() % 10);
     }
     qSort(array, n);
     printf("\nВведите количество случайных чисел k: ");
@@ -110,7 +110,7 @@ int main()
     scanf_s("%d", &k);
     for (int i = 0; i < k; i++)
     {
-        const int number = rand() % 100;
+        const int number = rand() % 10;
         if (binarySearch(array, number, n) == -1)
         {
             printf("\nЧисло %d не содержится в массиве.", number);
