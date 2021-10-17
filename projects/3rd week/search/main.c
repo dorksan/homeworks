@@ -59,10 +59,10 @@ int binarySearch(int* array, int number, int size)
         }
         else
         {
-            return middle;
+            return array[middle];
         }
     }
-    return -1;
+    return 0;
 }
 
 bool testQSort(void)
@@ -76,16 +76,15 @@ bool testQSort(void)
     {
         if (array[i] != sortArray[i] || array1[i] != sortArray[i])
         {
-            return false;
+            return 0;
         }
     }
-    return true;
 }
 
 bool testBinarySearch()
 {
     int array[TEST_TWO] = { 1, 3, 7, 8, 12, 19, 26, 34, 42, 51 };
-    return binarySearch(array, 3, TEST_TWO) == 1 && binarySearch(array, 11, TEST_TWO) == -1;
+    return binarySearch(array, 3, TEST_TWO) == 3 && binarySearch(array, 11, TEST_TWO) == 0;
 }
 
 int main()
@@ -102,7 +101,7 @@ int main()
     int* array = calloc(n, sizeof(int));
     for (int i = 0; i < n; i++)
     {
-        printf("%d ", array[i] = rand() % 10);
+        printf("%d ", array[i] = rand() % 100);
     }
     qSort(array, n);
     printf("\nВведите количество случайных чисел k: ");
@@ -110,8 +109,8 @@ int main()
     scanf_s("%d", &k);
     for (int i = 0; i < k; i++)
     {
-        const int number = rand() % 10;
-        if (binarySearch(array, number, n) == -1)
+        const int number = rand() % 100;
+        if (binarySearch(array, number, n) == 0)
         {
             printf("\nЧисло %d не содержится в массиве.", number);
         }
