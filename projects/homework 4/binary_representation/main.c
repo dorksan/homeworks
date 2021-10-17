@@ -1,9 +1,7 @@
-#include "decimalToBinary.h"
-#include "testDecimalToBinary.h"
+#include "conversion.h"
+#include "testConversion.h"
 #include "binaryAddition.h"
 #include "testBinaryAddition.h"
-#include "binaryToDecimal.h"
-#include "testBinaryToDecimal.h"
 #include <stdio.h>
 
 #define SIZE 8
