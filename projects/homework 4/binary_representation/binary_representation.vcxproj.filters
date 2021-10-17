@@ -30,6 +30,12 @@
     <ClCompile Include="testBinaryAddition.c">
       <Filter>Исходные файлы</Filter>
     </ClCompile>
+    <ClCompile Include="binaryToDecimal.c">
+      <Filter>Исходные файлы</Filter>
+    </ClCompile>
+    <ClCompile Include="testBinaryToDecimal.c">
+      <Filter>Исходные файлы</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="decimalToBinary.h">
@@ -42,6 +48,12 @@
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
     <ClInclude Include="testBinaryAddition.h">
+      <Filter>Файлы заголовков</Filter>
+    </ClInclude>
+    <ClInclude Include="binaryToDecimal.h">
+      <Filter>Файлы заголовков</Filter>
+    </ClInclude>
+    <ClInclude Include="testBinaryToDecimal.h">
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
   </ItemGroup>

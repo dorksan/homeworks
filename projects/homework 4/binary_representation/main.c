@@ -2,15 +2,15 @@
 #include "testDecimalToBinary.h"
 #include "binaryAddition.h"
 #include "testBinaryAddition.h"
+#include "binaryToDecimal.h"
+#include "testBinaryToDecimal.h"
 #include <stdio.h>
-#include <stdbool.h>
-#include <stdlib.h>
 
 #define SIZE 8
 
 int main()
 {
-    if (!testDecimalToBinary() || !testBinaryAddition())
+    if (!testDecimalToBinary() || !testBinaryAddition() || !testBinaryToDecimal())
     {
         printf("Ошибка");
         return -1;
@@ -37,9 +37,10 @@ int main()
     }
     int sum[SIZE] = { 0 };
     binaryAddition(firstArray, secondArray, sum);
-    printf("\nСумма двух чисел: ");
+    printf("\nДвоичное представление суммы двух чисел: ");
     for (int i = 0; i < SIZE; i++)
     {
         printf("%d", sum[i]);
     }
+    printf("\nДесятичное представление суммы двух чисел: %d", (binaryToDecimal(sum)));
 }
