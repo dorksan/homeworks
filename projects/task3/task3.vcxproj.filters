@@ -26,5 +26,8 @@
     <Text Include="g.txt">
       <Filter>Файлы ресурсов</Filter>
     </Text>
+    <Text Include="h.txt">
+      <Filter>Файлы ресурсов</Filter>
+    </Text>
   </ItemGroup>
 </Project>
