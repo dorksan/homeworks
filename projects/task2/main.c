@@ -17,8 +17,8 @@ void sort(int* array, int size)
         {
             if (array[i] > array[i + j])
             {
-                const int temp = array[j + 1];
-                array[j + 1] = array[i];
+                const int temp = array[j + i];
+                array[j + i] = array[i];
                 array[i] = temp;
             }
         }
