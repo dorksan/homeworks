@@ -9,7 +9,7 @@ void halfQSort(int* array, int size)
 {
     int left = 0;
     int right = size - 1;
-    int firstElement = array[0];
+    const int firstElement = array[0];
     while (left <= right)
     {
         while (array[left] < firstElement)
@@ -58,10 +58,16 @@ int main()
     int size = 0;
     scanf_s("%d", &size);
     int* array = calloc(size, sizeof(int));
+    if (array == NULL)
+    {
+        printf("Ошибка");
+        return -1;
+    }
     printf("\nИсходный массив: ");
     for (int i = 0; i < size; i++)
     {
-        printf("%d ", array[i] = rand() % 10);
+        array[i] = rand() % 10;
+        printf("%d ", array[i]);
     }
     halfQSort(array, size);
     printf("\nОтсортированный массив: ");
