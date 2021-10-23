@@ -47,7 +47,7 @@ int binarySearch(int* array, int number, int size)
     int right = size - 1;
     while (left <= right)
     {
-        int middle = (left + right) / 2;
+        const int middle = (left + right) / 2;
         if (number < array[middle])
         {
             right = middle - 1;
