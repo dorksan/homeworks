@@ -18,15 +18,15 @@ int main()
     if (phoneBook == NULL)
     {
         printf("Файл не найден.");
-        fclose(phoneBook);
         return -1;
     }
     while (!feof(phoneBook))
     {
-        fscanf(phoneBook, "%s", &entry[pointer].name);
-        fscanf(phoneBook, "%s", &entry[pointer].phone);
+        fscanf(phoneBook, "%[^\n]%*c", &entry[pointer].name);
+        fscanf(phoneBook, "%[^\n]%*c", &entry[pointer].phone);
         pointer++;
     }
+    fclose(phoneBook);
     printf("0 - выйти");
     printf("\n1 - добавить запись(имя и телефон)");
     printf("\n2 - распечатать все имеющиеся записи");
@@ -36,14 +36,15 @@ int main()
     while (pointer != SIZE)
     {
         printf("\nВведите команду: ");
-        int input;
+        int input = 0;
         scanf_s("%d", &input);
         while (scanf_s("%*c") == 1);
         switch (input)
         {
         case 0:
             fclose(phoneBook);
-            exit(1);
+            printf("Вы вышли из программы.");
+            return -1;
             break;
         case 1:
             printf("Пожалуйста, введите имя: ");
@@ -89,7 +90,6 @@ int main()
             if (phoneBookSave == NULL)
             {
                 printf("Файл не найден.");
-                close(phoneBookSave);
                 return -1;
             }
             for (int i = 0; i < pointer; i++)
