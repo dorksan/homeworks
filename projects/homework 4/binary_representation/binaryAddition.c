@@ -1,11 +1,9 @@
 #include "binaryAddition.h"
 
-#define SIZE 8
-
-void binaryAddition(int* firstBinaryNumber, int* secondBinaryNumber, int* result)
+void binaryAddition(int* firstBinaryNumber, int* secondBinaryNumber, int* result, int size)
 {
     int temp = 0;
-    for (int i = SIZE; i > 0; i--)
+    for (int i = 0; i < size; i++)
     {
         int sum = firstBinaryNumber[i] + secondBinaryNumber[i] + temp;
         if (sum == 0)

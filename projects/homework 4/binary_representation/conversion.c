@@ -1,28 +1,27 @@
 #include "conversion.h"
-#include <math.h>
 
-#define SIZE 8
-
-int binaryToDecimal(int* array)
+int binaryToDecimal(int* array, int size)
 {
     int result = 0;
-    for (int i = SIZE; i > 0; i--)
+    int temp = 1;
+    for (int i = 0; i < size; i++)
     {
         if (array[i] == 1)
         {
-            result = pow(2, SIZE - i - 1) + result;
+            result += temp;
         }
+        temp *= 2;
     }
     return result;
 }
 
-void decimalToBinary(int number, int* array)
+void decimalToBinary(int number, int* array, int size)
 {
     int decimalNumber = number;
-    int mask = 0b10000000;
-    for (int i = 0; i < SIZE; i++)
+    int mask = 0b1;
+    for (int i = 0; i < size; i++)
     {
         array[i] = ((decimalNumber & mask) ? 1 : 0);
-        mask = mask >> 1;
+        mask = mask << 1;
     }
 }
