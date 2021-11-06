@@ -16,5 +16,5 @@ bool testBalance(void)
     return !balance(stringTest1, TEST_SIZE) && !balance(stringTest2, TEST_SIZE)
         && !balance(stringTest3, TEST_SIZE) && !balance(stringTest4, TEST_SIZE)
         && balance(stringTest5, TEST_SIZE) && balance(stringTest6, TEST_SIZE)
-        && balance(stringTest7, TEST_SIZE) && balance(stringTest8, TEST_SIZE);
+        && balance(stringTest7, TEST_SIZE) && balance(stringTest8, TEST_SIZE)
 }
