@@ -32,12 +32,14 @@ Stack* pop(Stack* stack, int* value)
     return newStack;
 }
 
-int top(Stack* stack)
+int top(Stack* stack, int* errorCode)
 {
     if (stack != NULL)
     {
+        *errorCode = 0;
         return stack->value;
     }
+    *errorCode = 1;
     return 0;
 }
 

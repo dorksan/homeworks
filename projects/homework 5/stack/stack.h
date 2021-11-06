@@ -9,7 +9,7 @@ Stack* push(Stack* stack, int element);
 Stack* pop(Stack* stack, int* value);
 
 // Возвращает верхний элемент стека
-int top(Stack* stack);
+int top(Stack* stack, int* errorCode);
 
 // Удаляет стек
 Stack* deleteStack(Stack* stack);
