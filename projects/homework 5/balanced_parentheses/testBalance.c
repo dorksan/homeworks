@@ -13,12 +13,8 @@ bool testBalance(void)
     char stringTest6[TEST_SIZE] = "{{{(([]))}}}";
     char stringTest7[TEST_SIZE] = "(ab)/[aa{10}bb]";
     char stringTest8[TEST_SIZE] = "()";
-    if (balance(stringTest1, TEST_SIZE) == false || balance(stringTest2, TEST_SIZE) == false
-        || balance(stringTest3, TEST_SIZE) == false || balance(stringTest4, TEST_SIZE) == false
-        || balance(stringTest5, TEST_SIZE) == true || balance(stringTest6, TEST_SIZE) == true
-        || balance(stringTest7, TEST_SIZE) == true || balance(stringTest8, TEST_SIZE) == true)
-    {
-        return true;
-    }
-    return false;
+    return !balance(stringTest1, TEST_SIZE) && !balance(stringTest2, TEST_SIZE)
+        && !balance(stringTest3, TEST_SIZE) && !balance(stringTest4, TEST_SIZE)
+        && balance(stringTest5, TEST_SIZE) && balance(stringTest6, TEST_SIZE)
+        && balance(stringTest7, TEST_SIZE) && balance(stringTest8, TEST_SIZE);
 }
