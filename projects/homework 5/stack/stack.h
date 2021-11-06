@@ -2,17 +2,14 @@
 
 typedef struct Stack Stack;
 
-// Создает стек
-Stack* createStack(char element);
-
 // Добавляет элемент в стек
-void push(Stack** head, char element);
+Stack* push(Stack* stack, int element);
 
 // Удаляет элемент из стека
-void pop(Stack** head);
+Stack* pop(Stack* stack, int* value);
 
 // Возвращает верхний элемент стека
-void* peek(Stack* head);
+int top(Stack* stack);
 
- // Удаляет стек
-void deleteStack(Stack** head);
+// Удаляет стек
+Stack* deleteStack(Stack* stack);
