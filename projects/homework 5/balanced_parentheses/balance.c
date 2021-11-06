@@ -24,7 +24,7 @@ bool balance(char* string, int size)
         case ']':
             if (top(stack) != string[i])
             {
-                stack = deleteStack(stack);
+                deleteStack(stack);
                 return false;
             }
             int element = 0;
