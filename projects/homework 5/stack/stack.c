@@ -1,58 +1,53 @@
 #include "stack.h"
 #include <stdlib.h>
 #include <stdbool.h>
-#include <stdio.h>
 
 typedef struct Stack
 {
-    char* value;
+    int value;
     struct Stack* next;
 } Stack;
 
-Stack* createStack(char element)
+Stack* push(Stack* stack, int element)
 {
-    Stack* stack = calloc(1, sizeof(Stack));
+    Stack* newStack = calloc(1, sizeof(Stack));
+    if (newStack == NULL)
+    {
+        return NULL;
+    }
+    newStack->value = element;
+    newStack->next = stack;
+    return newStack;
+}
+
+Stack* pop(Stack* stack, int* value)
+{
     if (stack == NULL)
     {
-        return;
+        return NULL;
     }
-    stack->value = element;
-    stack->next = NULL;
-    return stack;
+    *value = stack->value;
+    Stack* newStack = stack->next;
+    free(stack);
+    return newStack;
 }
 
-void push(Stack** head, char element)
+int top(Stack* stack)
 {
-    Stack* newStack = createStack(element);
-    newStack->next = *head;
-    *head = newStack;
-}
-
-void pop(Stack** head)
-{
-    if (*head == NULL || head == NULL)
+    if (stack != NULL)
     {
-        return;
+        return stack->value;
     }
-    Stack* temp = *head;
-    *head = temp->next;
-    free(temp);
+    return 0;
 }
 
-void* peek(Stack* head)
+Stack* deleteStack(Stack* stack)
 {
-    return head->value;
-}
-
-bool isEmpty(Stack* head)
-{
-    return head == NULL;
-}
-
-void deleteStack(Stack** head)
-{
-    while (!isEmpty(*head))
+    while (stack != NULL)
     {
-        pop(head);
+        Stack* newStack = stack->next;
+        free(stack);
+        stack = newStack;
     }
+    return NULL;
 }
