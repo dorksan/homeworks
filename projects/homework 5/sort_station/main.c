@@ -1,6 +1,7 @@
 #include "sortStation.h"
 #include "sortStationTests.h"
 #include <stdio.h>
+#include <string.h>
 
 #define SIZE 100
 
@@ -10,7 +11,7 @@ int main()
     {
         return -1;
     }
-    int* errorCode = -1;
+    int errorCode = -1;
     printf("Введите выражение в инфиксной форме: ");
     char infixString[SIZE] = "";
     scanf_s("%[^\n]", &infixString, SIZE);
@@ -20,7 +21,9 @@ int main()
     if (errorCode == 0)
     {
         for (int i = 0; i < strlen(postfixString); i++)
-        printf("%c", postfixString[i]);
+        {
+            printf("%c", postfixString[i]);
+        }
     }
     else
     {

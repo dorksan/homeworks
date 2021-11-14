@@ -1,26 +1,24 @@
 #include "sortStation.h"
 #include "../stack/stack.h"
 #include <stdlib.h>
-#include <string.h>
 
-void sortStation(char* infixString, char* postfixString, int* errorCode)
+void sortStation(const char* infixString, char* postfixString, int* errorCode)
 {
     Stack* stack = NULL;
-    int temp = 0;
     int pointer = 0;
-    for (int i = 0; i < strlen(infixString); i++)
+    for (int i = 0; infixString[i] != '\0'; i++)
     {
         switch (infixString[i])
         {
         case '(':
-            stack = push(stack, infixString[i]);
+            stack = push(stack, infixString[i], errorCode);
             break;
         case ')':
             while (top(stack, errorCode) != '(')
             {
                 postfixString[pointer] = top(stack, errorCode);
                 pointer++;
-                stack = pop(stack, &temp);
+                stack = pop(stack, errorCode);
                 if (stack == NULL)
                 {
                     *errorCode = 1;
@@ -29,23 +27,23 @@ void sortStation(char* infixString, char* postfixString, int* errorCode)
             }
             if (top(stack, errorCode) == '(')
             {
-                stack = pop(stack, &temp);
+                stack = pop(stack, errorCode);
             }
             break;
         case '*':
         case '/':
-            stack = push(stack, infixString[i]);
+            stack = push(stack, infixString[i], errorCode);
             break;
         case '+':
         case '-':
-            if (top(stack, errorCode) == '*' || top(stack, errorCode) == '/')
+            while (top(stack, errorCode) == '*' || top(stack, errorCode) == '/')
             {
                 char operation = top(stack, errorCode);
-                stack = pop(stack, &temp);
+                stack = pop(stack, errorCode);
                 postfixString[pointer] = operation;
                 pointer++;
             }
-            stack = push(stack, infixString[i]);
+            stack = push(stack, infixString[i], errorCode);
             break;
         case ' ':
             break;
@@ -63,7 +61,7 @@ void sortStation(char* infixString, char* postfixString, int* errorCode)
             return;
         }
         postfixString[pointer] = top(stack, errorCode);
-        stack = pop(stack, &temp);
+        stack = pop(stack, errorCode);
         pointer++;
     }
     *errorCode = 0;

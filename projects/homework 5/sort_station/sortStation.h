@@ -7,4 +7,4 @@ typedef struct Stack Stack;
 // 0 - выполнено без ошибок
 // 1 - пропущена открывающая скобка
 // 2 - пропущена закрывающая скобка
-void sortStation(char* infixString, char* postfixString, int* errorCode);
+void sortStation(const char* infixString, const char* postfixString, int* errorCode);
