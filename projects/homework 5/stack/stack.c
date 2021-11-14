@@ -8,26 +8,30 @@ typedef struct Stack
     struct Stack* next;
 } Stack;
 
-Stack* push(Stack* stack, int element)
+Stack* push(Stack* stack, int element, int* errorCode)
 {
     Stack* newStack = calloc(1, sizeof(Stack));
     if (newStack == NULL)
     {
-        return NULL;
+        *errorCode = 1;
+        return stack;
     }
     newStack->value = element;
     newStack->next = stack;
+    *errorCode = 0;
     return newStack;
 }
 
-Stack* pop(Stack* stack, int* value)
+Stack* pop(Stack* stack, int* errorCode)//, int* value)
 {
     if (stack == NULL)
     {
+        *errorCode = 1;
         return NULL;
     }
-    *value = stack->value;
+    //*value = stack->value;
     Stack* newStack = stack->next;
+    *errorCode = 0;
     free(stack);
     return newStack;
 }
@@ -43,7 +47,7 @@ int top(Stack* stack, int* errorCode)
     return 0;
 }
 
-Stack* deleteStack(Stack* stack)
+void deleteStack(Stack* stack)
 {
     while (stack != NULL)
     {
@@ -51,5 +55,4 @@ Stack* deleteStack(Stack* stack)
         free(stack);
         stack = newStack;
     }
-    return NULL;
 }
