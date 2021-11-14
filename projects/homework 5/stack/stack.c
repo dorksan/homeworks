@@ -22,14 +22,13 @@ Stack* push(Stack* stack, int element, int* errorCode)
     return newStack;
 }
 
-Stack* pop(Stack* stack, int* errorCode)//, int* value)
+Stack* pop(Stack* stack, int* errorCode)
 {
     if (stack == NULL)
     {
         *errorCode = 1;
         return NULL;
     }
-    //*value = stack->value;
     Stack* newStack = stack->next;
     *errorCode = 0;
     free(stack);
