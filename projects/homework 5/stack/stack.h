@@ -3,13 +3,13 @@
 typedef struct Stack Stack;
 
 // Добавляет элемент в стек
-Stack* push(Stack* stack, int element);
+Stack* push(Stack* stack, int element, int* errorCode);
 
 // Удаляет элемент из стека
-Stack* pop(Stack* stack, int* value);
+Stack* pop(Stack* stack, int* errorCode);
 
 // Возвращает верхний элемент стека
-int top(Stack* stack);
+int top(Stack* stack, int* errorCode);
 
 // Удаляет стек
-Stack* deleteStack(Stack* stack);
+void deleteStack(Stack* stack);
