@@ -1,18 +1,17 @@
 #include "../stack/stack.h"
 #include "calculate.h"
 #include <stdlib.h>
-#include <string.h>
 
 Stack* selectOperation(Stack* stack, char operation, int* errorCode)
 {
     int firstDigit = top(stack, errorCode);
-    stack = pop(stack, &firstDigit);
+    stack = pop(stack, errorCode);
     int secondDigit = top(stack, errorCode);
     if (*errorCode == 1)
     {
         return NULL;
     }
-    stack = pop(stack, &secondDigit);
+    stack = pop(stack, errorCode);
     int result = 0;
     switch (operation)
     {
@@ -33,18 +32,19 @@ Stack* selectOperation(Stack* stack, char operation, int* errorCode)
         else
         {
             *errorCode = 3;
-            return deleteStack(stack);
+            deleteStack(stack);
+            return NULL;
         }
         break;
     }
-    return push(stack, result);
+    return push(stack, result, errorCode);
 }
 
-int calculate(char* string, int* errorCode)
+int calculate(const char* string, int* errorCode)
 {
     Stack* stack = NULL;
     int result = 0;
-    for (int i = 0; i < strlen(string); i++)
+    for (int i = 0; string[i] != '\0'; i++)
     {
         switch (string[i])
         {
@@ -60,16 +60,15 @@ int calculate(char* string, int* errorCode)
             break;
         default:
             result = string[i] - '0';
-            stack = push(stack, result);
+            stack = push(stack, result, errorCode);
             break;
         }
     }
     int finalResult = top(stack, errorCode);
-    int temp = 0;
-    stack = pop(stack, &temp);
+    stack = pop(stack, errorCode);
     if (stack != NULL)
     {
-        stack = deleteStack(stack);
+        deleteStack(stack);
         *errorCode = 2;
     }
     else

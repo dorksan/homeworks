@@ -10,11 +10,11 @@ int main()
     {
         return -1;
     }
-    int* errorCode = -1;
+    int errorCode = -1;
     printf("Введите выражение в постфиксной форме: ");
     char string[SIZE] = "";
     scanf_s("%s", &string, SIZE);
-    int result = calculate(string, &errorCode);
+    const int result = calculate(string, &errorCode);
     if (errorCode == 0)
     {
         printf("Результат выражения: %d", result);
