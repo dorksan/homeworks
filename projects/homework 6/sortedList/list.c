@@ -101,7 +101,6 @@ void addElement(List* list, const int value)
         element->next = newElement;
     }
     return;
-
 }
 
 void deleteElement(List* list, const int value)
