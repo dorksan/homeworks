@@ -2,7 +2,7 @@
 #include "calculate.h"
 #include <stdlib.h>
 
-Stack* selectOperation(Stack* stack, char operation, int* errorCode)
+Stack* performOperation(Stack* stack, char operation, int* errorCode)
 {
     int firstDigit = top(stack, errorCode);
     stack = pop(stack, errorCode);
@@ -52,7 +52,7 @@ int calculate(const char* string, int* errorCode)
         case '-':
         case '*':
         case '/':
-            stack = selectOperation(stack, string[i], errorCode);
+            stack = performOperation(stack, string[i], errorCode);
             if (stack == NULL)
             {
                 return 0;
