@@ -18,7 +18,7 @@ typedef struct Position
     ListElement* position;
 } Position;
 
-List* createList(List* list)
+List* createList()
 {
     return calloc(1, sizeof(List));
 }
@@ -45,7 +45,7 @@ void positionToNext(Position* position)
     {
         return;
     }
-    position = position->position->next;
+    position->position = position->position->next;
 }
 
 bool isPositionNull(Position* position)
@@ -87,7 +87,7 @@ void addElement(List* list, const int value)
         list->head = newElement;
         return;
     }
-    while (element->next != NULL && value < element->next->value)
+    while (element->next != NULL && value >= element->next->value)
     {
         element = element->next;
     }
@@ -121,9 +121,9 @@ void deleteElement(List* list, const int value)
         free(element);
         return;
     }
-    while (element->next != NULL && value <= element->next->value)
+    while (element->next != NULL && value >= element->next->value)
     {
-        if (element->next == value)
+        if (element->next->value == value)
         {
             ListElement* temp = element->next;
             element->next = element->next->next;
