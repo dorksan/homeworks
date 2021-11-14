@@ -8,7 +8,6 @@ int main()
     printf("\n2 – удалить значение из списка\n3 – распечатать список\n");
     while (1)
     {
-        Position* position = createPosition(list);
         printf("\nВведите команду: ");
         int input = 0;
         scanf_s("%d", &input);
@@ -31,6 +30,8 @@ int main()
             deleteElement(list, value);
             break;
         case 3:
+        {
+            Position* position = createPosition(list);
             positionToHead(list, position);
             if (isPositionNull(position))
             {
@@ -43,6 +44,7 @@ int main()
             }
             deletePosition(position);
             break;
+        }
         default:
             printf("\nНеправильный ввод команды.\n");
             break;

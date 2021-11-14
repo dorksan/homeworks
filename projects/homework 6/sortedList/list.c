@@ -147,5 +147,6 @@ void deleteList(List* list)
         free(list->head);
         list->head = newListElement;
     }
+    free(list);
     return;
 }
