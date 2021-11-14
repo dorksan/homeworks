@@ -2,20 +2,25 @@
 #include "balance.h"
 #include <stdbool.h>
 
-#define TEST_SIZE 15
-
 bool testBalance(void)
 {
-    char stringTest1[TEST_SIZE] = "{[}]";
-    char stringTest2[TEST_SIZE] = ":(";
-    char stringTest3[TEST_SIZE] = "((())";
-    char stringTest4[TEST_SIZE] = ")";
-    char stringTest5[TEST_SIZE] = "[]{}()";
-    char stringTest6[TEST_SIZE] = "{{{(([]))}}}";
-    char stringTest7[TEST_SIZE] = "(ab)/[aa{10}bb]";
-    char stringTest8[TEST_SIZE] = "()";
-    return !balance(stringTest1, TEST_SIZE) && !balance(stringTest2, TEST_SIZE)
-        && !balance(stringTest3, TEST_SIZE) && !balance(stringTest4, TEST_SIZE)
-        && balance(stringTest5, TEST_SIZE) && balance(stringTest6, TEST_SIZE)
-        && balance(stringTest7, TEST_SIZE) && balance(stringTest8, TEST_SIZE);
+    int errorCode1 = -1;
+    int errorCode2 = -1;
+    int errorCode3 = -1;
+    int errorCode4 = -1;
+    int errorCode5 = -1;
+    int errorCode6 = -1;
+    int errorCode7 = -1;
+    int errorCode8 = -1;
+    balance("{[}]", &errorCode1);
+    balance(":(", &errorCode2);
+    balance("((())", &errorCode3);
+    balance(")", &errorCode4);
+    balance("[]{}()", &errorCode5);
+    balance("{{{(([]))}}}", &errorCode6);
+    balance("(ab)/[aa{10}bb]", &errorCode7);
+    balance("()", &errorCode8);
+    return (errorCode1 == 1) && (errorCode2 == 1) && (errorCode3 == 1)
+        && (errorCode4 == 1) && (errorCode5 == 0) && (errorCode6 == 0)
+        && (errorCode7 == 0) && (errorCode8 == 0);
 }

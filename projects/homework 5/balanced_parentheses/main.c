@@ -11,16 +11,16 @@ int main()
         return -1;
     }
     printf("Введите выражение: ");
-    char string[SIZE] = { 0 };
+    char string[SIZE] = "";
     scanf_s("%s", &string, SIZE);
-    int errorCode = 0;
-    balance(string, SIZE, &errorCode);
+    int errorCode = -1;
+    balance(string, &errorCode);
     if (errorCode == 0)
     {
         printf("Скобки сбалансированы.");
     }
     else
     {
-        printf("Скобки не сбалансированы.");
+        printf("Код ошибки: %d", errorCode);
     }
 }
