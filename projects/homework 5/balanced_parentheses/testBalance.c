@@ -1,4 +1,5 @@
 #include "testBalance.h"
+#include "balance.h"
 #include <stdbool.h>
 
 #define TEST_SIZE 15

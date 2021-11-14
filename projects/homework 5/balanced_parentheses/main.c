@@ -13,7 +13,9 @@ int main()
     printf("Введите выражение: ");
     char string[SIZE] = { 0 };
     scanf_s("%s", &string, SIZE);
-    if (balance(string, SIZE))
+    int errorCode = 0;
+    balance(string, SIZE, &errorCode);
+    if (errorCode == 0)
     {
         printf("Скобки сбалансированы.");
     }

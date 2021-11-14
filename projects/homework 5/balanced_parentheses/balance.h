@@ -2,4 +2,4 @@
 #include <stdbool.h>
 
 // Проверка баланса скобок в заданной строке
-bool balance(char* string, int size);
+bool balance(char* string, int size, int* errorCode);

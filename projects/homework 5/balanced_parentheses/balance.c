@@ -3,7 +3,7 @@
 #include <stdlib.h>
 #include <stdbool.h>
 
-bool balance(char* string, int size)
+bool balance(char* string, int size, int* errorCode)
 {
     Stack* stack = NULL;
     for (int i = 0; i < size; i++)
@@ -11,30 +11,29 @@ bool balance(char* string, int size)
         switch (string[i])
         {
         case '(':
-            stack = push(stack, ')');
+            stack = push(stack, ')', errorCode);
             break;
         case '{':
-            stack = push(stack, '}');
+            stack = push(stack, '}', errorCode);
             break;
         case '[':
-            stack = push(stack, ']');
+            stack = push(stack, ']', errorCode);
             break;
         case ')':
         case '}':
         case ']':
-            if (top(stack) != string[i])
+            if (top(stack, errorCode) != string[i])
             {
                 deleteStack(stack);
                 return false;
             }
-            int element = 0;
-            stack = pop(stack, &element);
+            stack = pop(stack, errorCode);
             break;
         default:
             break;
         }
     }
     bool isEmpty = stack == NULL;
-    stack = deleteStack(stack);
+    deleteStack(stack);
     return isEmpty;
 }
