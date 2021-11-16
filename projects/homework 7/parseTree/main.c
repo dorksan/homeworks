@@ -57,12 +57,19 @@ Node* createTreeRecursive(char* string, int* index)
                 counter++;
             }
             int result = 0;
-            powerOfTen = 1;
+            powerOfTen /= 10;
+            int newPowerOfTen = 1;
             for (int i = 0; i < counter; i++)
             {
-                result += invertedNumber;
+                result += invertedNumber / powerOfTen * newPowerOfTen;
+                invertedNumber %= powerOfTen;
+                newPowerOfTen *= 10;
+                powerOfTen /= 10;
             }
-            break;
+            result *= sign;
+            Node* node = createNode();
+            node->value = result;
+            return node;
         }
         }
     }
