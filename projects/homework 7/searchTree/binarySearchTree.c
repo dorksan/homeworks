@@ -96,6 +96,14 @@ Node* leftmostChild(Node* tree)
     return tree;
 }
 
+void deleteValueAndKey(Node* tree)
+{
+    free(tree->value);
+    free(tree->key);
+    free(tree);
+    return;
+}
+
 void deleteElement(Node* tree, int key)
 {
     if (tree == NULL)
@@ -108,20 +116,17 @@ void deleteElement(Node* tree, int key)
     {
         if (parent == NULL)
         {
-            free(tree->value);
-            free(tree);
+            deleteValueAndKey(tree);
             return;
         }
         if (parent->key > tree->key)
         {
-            free(tree->value);
-            free(tree);
+            deleteValueAndKey(tree);
             parent->leftChild = NULL;
         }
         else
         {
-            free(tree->value);
-            free(tree);
+            deleteValueAndKey(tree);
             parent->rightChild = NULL;
         }
     }
@@ -129,15 +134,13 @@ void deleteElement(Node* tree, int key)
     {
         parent->rightChild = tree->rightChild;
         parent->rightChild->parent = parent;
-        free(tree->value);
-        free(tree);
+        deleteValueAndKey(tree);
     }
     else if (tree->rightChild == NULL && tree->leftChild != NULL)
     {
         parent->leftChild = tree->leftChild;
         parent->leftChild->parent = parent;
-        free(tree->value);
-        free(tree);
+        deleteValueAndKey(tree);
     }
     else
     {
