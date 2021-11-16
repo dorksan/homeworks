@@ -46,8 +46,15 @@ int main()
             printf("Введите ключ: ");
             scanf_s("%d", &key);
             temp = searchInTree(tree, key);
-            char* word = getValueInTree(temp);
-            printf("Найденное значение: %s\n", word);
+            if (temp != NULL)
+            {
+                char* word = getValueInTree(temp);
+                printf("Найденное значение: %s\n", word);
+            }
+            else
+            {
+                printf("Значение не найдено.\n");
+            }
             break;
         case 3:
             printf("Введите ключ: ");

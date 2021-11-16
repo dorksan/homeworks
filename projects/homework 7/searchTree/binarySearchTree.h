@@ -12,8 +12,6 @@ char* getValueInTree(Node* tree);
 
 Node* leftmostChild(Node* tree);
 
-void deleteValueAndKey(Node* tree);
-
 void deleteElement(Node* tree, int key);
 
 void deleteTree(Node* node);
