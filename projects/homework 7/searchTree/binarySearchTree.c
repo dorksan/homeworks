@@ -47,6 +47,8 @@ Node* addElement(Node* tree, int key, char* value)
         {
             free(tree->value);
             tree->value = _strdup(value);
+            tree->key = key;
+            break;
         }
     }
     Node* newTree = createTree(key, value);
@@ -81,6 +83,11 @@ Node* searchInTree(Node* tree, int key)
         }
     }
     return tree;
+}
+
+char* getValueInTree(Node* tree)
+{
+    return tree->value;
 }
 
 Node* leftmostChild(Node* tree)

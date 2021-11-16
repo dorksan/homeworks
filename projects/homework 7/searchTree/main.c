@@ -7,6 +7,7 @@
 int main()
 {
     Node* tree = NULL;
+    Node* temp = NULL;
     printf("\n0 – выйти\n1 – добавить значение по ключу");
     printf("\n2 – получить значение по ключу");
     printf("\n3 – проверить наличие ключа");
@@ -42,10 +43,24 @@ int main()
             pointer++;
             break;
         case 2:
-
+            printf("Введите ключ: ");
+            scanf_s("%d", &key);
+            temp = searchInTree(tree, key);
+            char* word = getValueInTree(temp);
+            printf("Найденное значение: %s\n", word);
             break;
         case 3:
-
+            printf("Введите ключ: ");
+            scanf_s("%d", &key);
+            temp = searchInTree(tree, key);
+            if (temp == NULL)
+            {
+                printf("Ключ не содержится в словаре.\n");
+            }
+            else
+            {
+                printf("Ключ содержится в словаре.\n");
+            }
             break;
         case 4:
             printf("Введите ключ: ");
