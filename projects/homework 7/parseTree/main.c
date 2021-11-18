@@ -6,9 +6,17 @@
 
 int main()
 {
-    Node* node = createTree("(* (+ 1 1) 2)");
-    printf("%d\n", getResult(node));
-    char string[SIZE] = { '\0' };
-    getString(node, string, SIZE);
-    printf("%s", string);
+    FILE* file = fopen("file.txt", "r");
+    if (file == NULL)
+    {
+        return -1;
+    }
+    char inputString[SIZE] = { 0 };
+    fgets(inputString, SIZE, file);
+    fclose(file);
+    Node* node = createTree(inputString);
+    char outputString[SIZE] = { '\0' };
+    getString(node, outputString, SIZE);
+    printf("Исходное выражение: %s\n", outputString);
+    printf("Результат выражения: %d\n", getResult(node));
 }
