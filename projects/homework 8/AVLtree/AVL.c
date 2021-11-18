@@ -2,8 +2,6 @@
 #include <stdlib.h>
 #include <string.h>
 
-#define SIZE 30
-
 typedef struct Node
 {
     int key;
