@@ -12,7 +12,9 @@ char* getValueInTree(Node* tree);
 
 Node* leftmostChild(Node* tree);
 
-int findBalanceFactor(Node* node);
+int heightSearch(Node* node);
+
+int balanceSearch(Node* node);
 
 Node* rotate();
 

@@ -102,33 +102,51 @@ Node* leftmostChild(Node* tree)
     return tree;
 }
 
-int findBalanceFactor(Node* node)
+int heightSearch(Node* node)
 {
     if (node->leftChild == NULL && node->rightChild == NULL)
     {
         node->balanceFactor = 0;
         return node->balanceFactor;
     }
+    int leftHeight = 1;
+    int rightHeight = 1;
     if (node->leftChild != NULL && node->rightChild == NULL)
     {
-        int rightHeight = 0;
-        int leftHeight = 1 + findBalanceFactor(node->leftChild);
-        node->balanceFactor = rightHeight - leftHeight;
-        return node->balanceFactor;
+        leftHeight += heightSearch(node->leftChild);
+        node->balanceFactor = max(leftHeight, rightHeight);
     }
     if (node->leftChild == NULL && node->rightChild != NULL)
     {
-        int leftHeight = 0;
-        int rightHeight = 1 + findBalanceFactor(node->rightChild);
-        node->balanceFactor = rightHeight - leftHeight;
-        return node->balanceFactor;
+        rightHeight += heightSearch(node->rightChild);
+        node->balanceFactor = max(leftHeight, rightHeight);
     }
     if (node->leftChild != NULL && node->rightChild != NULL)
     {
-        int leftHeight = findBalanceFactor(node->leftChild);
-        int rightHeight = findBalanceFactor(node->rightChild);
-        node->balanceFactor = rightHeight - leftHeight;
-        return node->balanceFactor;
+        leftHeight += heightSearch(node->leftChild);
+        rightHeight += heightSearch(node->rightChild);
+        node->balanceFactor = max(leftHeight, rightHeight);
+    }
+    return node->balanceFactor;
+}
+
+int balanceSearch(Node* node)
+{
+    if (node->leftChild == NULL && node->rightChild == NULL)
+    {
+        node->balanceFactor = 0;
+    }
+    if (node->leftChild != NULL && node->rightChild == NULL)
+    {
+        node->balanceFactor = 1 + heightSearch(node->leftChild);
+    }
+    if (node->leftChild == NULL && node->rightChild != NULL)
+    {
+        node->balanceFactor = 1 + heightSearch(node->rightChild);
+    }
+    if (node->leftChild != NULL && node->rightChild != NULL)
+    {
+        node->balanceFactor = heightSearch(node->rightChild) - heightSearch(node->leftChild);
     }
     return node->balanceFactor;
 }

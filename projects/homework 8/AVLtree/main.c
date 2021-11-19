@@ -41,7 +41,7 @@ int main()
                 tree = addElement(tree, key, value);
             }
             pointer++;
-            printf("--------   %d", findBalanceFactor(tree));
+            printf("--------   %d", balanceSearch(tree));
             break;
         case 2:
             printf("Введите ключ: ");
