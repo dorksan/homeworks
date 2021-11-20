@@ -79,8 +79,11 @@ Node* rotateLeft(Node* node)
     newNode->leftChild = node;
     node->rightChild = movingNode;
     newNode->parent = node->parent;
+    if (movingNode != NULL)
+    {
+        movingNode->parent = node;
+    }
     node->parent = newNode;
-    movingNode->parent = node;
     node->balanceFactor = balanceSearch(node);
     newNode->balanceFactor = balanceSearch(newNode);
     return newNode;
@@ -93,8 +96,11 @@ Node* rotateRight(Node* node)
     newNode->rightChild = node;
     node->leftChild = movingNode;
     newNode->parent = node->parent;
+    if (movingNode != NULL)
+    {
+        movingNode->parent = node;
+    }
     node->parent = newNode;
-    movingNode->parent = node;
     node->balanceFactor = balanceSearch(node);
     newNode->balanceFactor = balanceSearch(newNode);
     return newNode;
@@ -120,11 +126,14 @@ Node* balance(Node* node)
 {
     if (node->balanceFactor == 2)
     {
-        if (node->rightChild->balanceFactor <= 0)
+        if (node->rightChild->balanceFactor >= 0)
         {
             return rotateLeft(node);
         }
-        return bigRotateLeft(node);
+        else
+        {
+            return bigRotateLeft(node);
+        }
     }
     if (node->balanceFactor == -2)
     {
@@ -132,7 +141,10 @@ Node* balance(Node* node)
         {
             return rotateRight(node);
         }
-        return bigRotateRight(node);
+        else
+        {
+            return bigRotateRight(node);
+        }
     }
     return node;
 }
