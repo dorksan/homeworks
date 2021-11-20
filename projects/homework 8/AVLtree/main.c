@@ -41,7 +41,7 @@ int main()
                 tree = addElement(tree, key, value);
             }
             pointer++;
-            printf("--------   %d", balanceSearch(tree));
+            //printf("--------   %d", balanceSearch(tree));
             break;
         case 2:
             printf("Введите ключ: ");
@@ -73,7 +73,7 @@ int main()
         case 4:
             printf("Введите ключ: ");
             scanf_s("%d", &key);
-            deleteElement(tree, key);
+            tree = deleteElement(tree, key);
             pointer--;
             break;
         default:

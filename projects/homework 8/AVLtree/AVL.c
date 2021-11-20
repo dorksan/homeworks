@@ -23,85 +23,6 @@ Node* createTree(int key, char* value)
     return tree;
 }
 
-Node* addElement(Node* tree, int key, char* value)
-{
-    Node* root = tree;
-    Node* parent = tree;
-    if (tree == NULL)
-    {
-        return NULL;
-    }
-    while (tree != NULL)
-    {
-        parent = tree;
-        if (key < tree->key)
-        {
-            tree = tree->leftChild;
-        }
-        else if (key > tree->key)
-        {
-            tree = tree->rightChild;
-        }
-        else
-        {
-            free(tree->value);
-            tree->value = _strdup(value);
-            tree->key = key;
-            break;
-        }
-    }
-    Node* newTree = createTree(key, value);
-    if (key < parent->key)
-    {
-        parent->leftChild = newTree;
-    }
-    else
-    {
-        parent->rightChild = newTree;
-
-    }
-    newTree->parent = parent;
-    return root;
-}
-
-Node* searchInTree(Node* tree, int key)
-{
-    while (tree != NULL)
-    {
-        if (key == tree->key)
-        {
-            return tree;
-        }
-        else if (key < tree->key)
-        {
-            tree = tree->leftChild;
-        }
-        else
-        {
-            tree = tree->rightChild;
-        }
-    }
-    return tree;
-}
-
-char* getValueInTree(Node* tree)
-{
-    return tree->value;
-}
-
-Node* leftmostChild(Node* tree)
-{
-    if (tree == NULL)
-    {
-        return NULL;
-    }
-    while (tree->leftChild != NULL)
-    {
-        tree = tree->leftChild;
-    }
-    return tree;
-}
-
 int heightSearch(Node* node)
 {
     if (node->leftChild == NULL && node->rightChild == NULL)
@@ -151,67 +72,248 @@ int balanceSearch(Node* node)
     return node->balanceFactor;
 }
 
-Node* rotate()
+Node* rotateLeft(Node* node)
 {
-
+    Node* newNode = node->rightChild;
+    Node* movingNode = newNode->leftChild;
+    newNode->leftChild = node;
+    node->rightChild = movingNode;
+    newNode->parent = node->parent;
+    node->parent = newNode;
+    movingNode->parent = node;
+    node->balanceFactor = balanceSearch(node);
+    newNode->balanceFactor = balanceSearch(newNode);
+    return newNode;
 }
 
-
-void deleteElement(Node* tree, int key)
+Node* rotateRight(Node* node)
 {
-    if (tree == NULL)
+    Node* newNode = node->leftChild;
+    Node* movingNode = newNode->rightChild;
+    newNode->rightChild = node;
+    node->leftChild = movingNode;
+    newNode->parent = node->parent;
+    node->parent = newNode;
+    movingNode->parent = node;
+    node->balanceFactor = balanceSearch(node);
+    newNode->balanceFactor = balanceSearch(newNode);
+    return newNode;
+}
+
+Node* bigRotateLeft(Node* node)
+{
+    Node* temp = rotateRight(node->rightChild);
+    node->rightChild = temp;
+    Node* newNode = rotateLeft(node);
+    return newNode;
+}
+
+Node* bigRotateRight(Node* node)
+{
+    Node* temp = rotateLeft(node->leftChild);
+    node->leftChild = temp;
+    Node* newNode = rotateRight(node);
+    return newNode;
+}
+
+Node* balance(Node* node)
+{
+    if (node->balanceFactor == 2)
     {
-        return;
-    }
-    tree = searchInTree(tree, key);
-    if (tree == NULL)
-    {
-        return;
-    }
-    Node* parent = tree->parent;
-    if (tree->leftChild == NULL && tree->rightChild == NULL)
-    {
-        if (parent == NULL)
+        if (node->rightChild->balanceFactor <= 0)
         {
-            free(tree->value);
-            free(tree);
-            return;
+            return rotateLeft(node);
         }
-        if (parent->key > tree->key)
+        return bigRotateLeft(node);
+    }
+    if (node->balanceFactor == -2)
+    {
+        if (node->leftChild->balanceFactor <= 0)
         {
-            free(tree->value);
-            free(tree);
-            parent->leftChild = NULL;
+            return rotateRight(node);
+        }
+        return bigRotateRight(node);
+    }
+    return node;
+}
+
+Node* balanceAllTree(Node* node, int key)
+{
+    if (node->key != key)
+    {
+        if (key < node->key)
+        {
+            node->leftChild = balanceAllTree(node->leftChild, key);
         }
         else
         {
-            free(tree->value);
-            free(tree);
-            parent->rightChild = NULL;
+            node->rightChild = balanceAllTree(node->rightChild, key);
         }
     }
-    else if (tree->leftChild == NULL && tree->rightChild != NULL)
+    node->balanceFactor = balanceSearch(node);
+    return balance(node);
+}
+
+Node* addElement(Node* node, int key, char* value)
+{
+    Node* root = node;
+    Node* parent = node;
+    if (node == NULL)
     {
-        parent->rightChild = tree->rightChild;
-        parent->rightChild->parent = parent;
-        free(tree->value);
-        free(tree);
+        return NULL;
     }
-    else if (tree->rightChild == NULL && tree->leftChild != NULL)
+    while (node != NULL)
     {
-        parent->leftChild = tree->leftChild;
-        parent->leftChild->parent = parent;
-        free(tree->value);
-        free(tree);
+        parent = node;
+        if (key < node->key)
+        {
+            node = node->leftChild;
+        }
+        else if (key > node->key)
+        {
+            node = node->rightChild;
+        }
+        else
+        {
+            free(node->value);
+            node->value = _strdup(value);
+            node->key = key;
+            break;
+        }
+    }
+    Node* newNode = createTree(key, value);
+    if (key < parent->key)
+    {
+        parent->leftChild = newNode;
     }
     else
     {
-        Node* minNode = leftmostChild(tree->rightChild);
-        tree->key = minNode->key;
-        free(tree->value);
-        tree->value = minNode->value;
+        parent->rightChild = newNode;
+    }
+    newNode->parent = parent;
+    return balanceAllTree(root, parent->key);
+}
+
+Node* searchInTree(Node* node, int key)
+{
+    while (node != NULL)
+    {
+        if (key == node->key)
+        {
+            return node;
+        }
+        else if (key < node->key)
+        {
+            node = node->leftChild;
+        }
+        else
+        {
+            node = node->rightChild;
+        }
+    }
+    return node;
+}
+
+char* getValueInTree(Node* node)
+{
+    return node->value;
+}
+
+Node* leftmostChild(Node* node)
+{
+    if (node == NULL)
+    {
+        return NULL;
+    }
+    while (node->leftChild != NULL)
+    {
+        node = node->leftChild;
+    }
+    return node;
+}
+
+Node* deleteElement(Node* node, int key)
+{
+    if (node == NULL)
+    {
+        return NULL;
+    }
+    Node* root = node;
+    node = searchInTree(node, key);
+    if (node == NULL)
+    {
+        return root;
+    }
+    Node* parent = node->parent;
+    if (node->leftChild == NULL && node->rightChild == NULL)
+    {
+        if (parent == NULL)
+        {
+            free(node->value);
+            free(node);
+            return NULL;
+        }
+        if (parent->key > node->key)
+        {
+            free(node->value);
+            free(node);
+            parent->leftChild = NULL;
+            return balanceAllTree(root, parent->key);
+        }
+        else
+        {
+            free(node->value);
+            free(node);
+            parent->rightChild = NULL;
+            return balanceAllTree(root, parent->key);
+        }
+    }
+    else if (node->leftChild == NULL && node->rightChild != NULL)
+    {
+        if (parent != NULL)
+        {
+            parent->rightChild = node->rightChild;
+            parent->rightChild->parent = parent;
+            free(node->value);
+            free(node);
+            return balanceAllTree(root, parent->key);
+        }
+        else
+        {
+            root = balance(node->rightChild);
+            free(node->value);
+            free(node);
+            return root;
+        }
+    }
+    else if (node->leftChild != NULL && node->rightChild == NULL)
+    {
+        if (parent != NULL)
+        {
+            parent->leftChild = node->leftChild;
+            parent->leftChild->parent = parent;
+            free(node->value);
+            free(node);
+            return balanceAllTree(root, parent->key);
+        }
+        else
+        {
+            root = balance(node->leftChild);
+            free(node->value);
+            free(node);
+            return root;
+        }
+    }
+    else
+    {
+        Node* minNode = leftmostChild(node->rightChild);
+        int temp = minNode->key;
+        free(node->value);
+        node->value = minNode->value;
         minNode->value = NULL;
-        deleteElement(tree->rightChild, minNode->key);
+        root = deleteElement(root, minNode->key);
+        node->key = temp;
+        return root;
     }
 }
 
