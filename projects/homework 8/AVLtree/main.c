@@ -45,7 +45,6 @@ int main()
             {
                 tree = addElement(tree, key, value);
             }
-            printf("------- %d", balanceSearch(tree));
             pointer++;
             break;
         case 2:
