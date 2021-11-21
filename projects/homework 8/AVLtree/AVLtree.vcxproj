@@ -139,11 +139,13 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="AVL.c" />
+    <ClCompile Include="AVLTree.c" />
+    <ClCompile Include="AVLTreeTests.c" />
     <ClCompile Include="main.c" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="AVL.h" />
+    <ClInclude Include="AVLtree.h" />
+    <ClInclude Include="AVLTreeTests.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

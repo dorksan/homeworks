@@ -18,12 +18,18 @@
     <ClCompile Include="main.c">
       <Filter>Исходные файлы</Filter>
     </ClCompile>
-    <ClCompile Include="AVL.c">
+    <ClCompile Include="AVLTree.c">
+      <Filter>Исходные файлы</Filter>
+    </ClCompile>
+    <ClCompile Include="AVLTreeTests.c">
       <Filter>Исходные файлы</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="AVL.h">
+    <ClInclude Include="AVLtree.h">
+      <Filter>Файлы заголовков</Filter>
+    </ClInclude>
+    <ClInclude Include="AVLTreeTests.h">
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
   </ItemGroup>

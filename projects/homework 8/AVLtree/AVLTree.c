@@ -1,4 +1,4 @@
-#include "AVL.h"
+#include "AVLTree.h"
 #include <stdlib.h>
 #include <string.h>
 
@@ -25,30 +25,30 @@ Node* createTree(int key, char* value)
 
 int heightSearch(Node* node)
 {
+    int height = 0;
     if (node->leftChild == NULL && node->rightChild == NULL)
     {
-        node->balanceFactor = 0;
-        return node->balanceFactor;
+        height = 0;
     }
     int leftHeight = 1;
     int rightHeight = 1;
     if (node->leftChild != NULL && node->rightChild == NULL)
     {
         leftHeight += heightSearch(node->leftChild);
-        node->balanceFactor = max(leftHeight, rightHeight);
+        height = max(leftHeight, rightHeight);
     }
     if (node->leftChild == NULL && node->rightChild != NULL)
     {
         rightHeight += heightSearch(node->rightChild);
-        node->balanceFactor = max(leftHeight, rightHeight);
+        height = max(leftHeight, rightHeight);
     }
     if (node->leftChild != NULL && node->rightChild != NULL)
     {
         leftHeight += heightSearch(node->leftChild);
         rightHeight += heightSearch(node->rightChild);
-        node->balanceFactor = max(leftHeight, rightHeight);
+        height = max(leftHeight, rightHeight);
     }
-    return node->balanceFactor;
+    return height;
 }
 
 int balanceSearch(Node* node)
@@ -57,15 +57,15 @@ int balanceSearch(Node* node)
     {
         node->balanceFactor = 0;
     }
-    if (node->leftChild != NULL && node->rightChild == NULL)
+    else if (node->leftChild != NULL && node->rightChild == NULL)
     {
-        node->balanceFactor = 1 + heightSearch(node->leftChild);
+        node->balanceFactor = -1 - heightSearch(node->leftChild);
     }
-    if (node->leftChild == NULL && node->rightChild != NULL)
+    else if (node->leftChild == NULL && node->rightChild != NULL)
     {
         node->balanceFactor = 1 + heightSearch(node->rightChild);
     }
-    if (node->leftChild != NULL && node->rightChild != NULL)
+    else if (node->leftChild != NULL && node->rightChild != NULL)
     {
         node->balanceFactor = heightSearch(node->rightChild) - heightSearch(node->leftChild);
     }
@@ -344,4 +344,13 @@ void deleteTree(Node* node)
         free(node->value);
         free(node);
     }
+}
+
+int countElements(Node* node)
+{
+    if (node == NULL)
+    {
+        return 0;
+    }
+    return 1 + countElements(node->leftChild) + countElements(node->rightChild);
 }

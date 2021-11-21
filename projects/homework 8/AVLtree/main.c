@@ -1,4 +1,5 @@
-#include "AVL.h"
+#include "AVLTree.h"
+#include "AVLTreeTests.h"
 #include <stdio.h>
 #include <stdlib.h>
 
@@ -6,6 +7,10 @@
 
 int main()
 {
+    if (!areTestsPassed())
+    {
+        return -1;
+    }
     Node* tree = NULL;
     Node* temp = NULL;
     printf("\n0 – выйти\n1 – добавить значение по ключу");
@@ -40,6 +45,7 @@ int main()
             {
                 tree = addElement(tree, key, value);
             }
+            printf("------- %d", balanceSearch(tree));
             pointer++;
             break;
         case 2:
