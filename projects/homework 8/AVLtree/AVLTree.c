@@ -14,13 +14,13 @@ typedef struct Node
 
 Node* createTree(int key, char* value)
 {
-    Node* tree = calloc(1, sizeof(Node));
-    if (tree != NULL)
+    Node* node = calloc(1, sizeof(Node));
+    if (node != NULL)
     {
-        tree->value = _strdup(value);
-        tree->key = key;
+        node->value = _strdup(value);
+        node->key = key;
     }
-    return tree;
+    return node;
 }
 
 int heightSearch(Node* node)

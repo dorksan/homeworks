@@ -2,7 +2,7 @@
 
 typedef struct Node Node;
 
-// Создает дерева
+// Создает дерево
 Node* createTree(int key, char* value);
 
 // Подсчитывает высоту поддерева от заданного узла
