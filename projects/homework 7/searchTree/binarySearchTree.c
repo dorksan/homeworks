@@ -15,39 +15,39 @@ typedef struct Node
 
 Node* createTree(int key, char* value)
 {
-    Node* tree = calloc(1, sizeof(Node));
-    if (tree != NULL)
+    Node* node = calloc(1, sizeof(Node));
+    if (node != NULL)
     {
-        tree->value = _strdup(value);
-        tree->key = key;
+        node->value = _strdup(value);
+        node->key = key;
     }
-    return tree;
+    return node;
 }
 
-Node* addElement(Node* tree, int key, char* value)
+Node* addElement(Node* node, int key, char* value)
 {
-    Node* root = tree;
-    Node* parent = tree;
-    if (tree == NULL)
+    Node* root = node;
+    Node* parent = node;
+    if (node == NULL)
     {
         return NULL;
     }
-    while (tree != NULL)
+    while (node != NULL)
     {
-        parent = tree;
-        if (key < tree->key)
+        parent = node;
+        if (key < node->key)
         {
-            tree = tree->leftChild;
+            node = node->leftChild;
         }
-        else if (key > tree->key)
+        else if (key > node->key)
         {
-            tree = tree->rightChild;
+            node = node->rightChild;
         }
         else
         {
-            free(tree->value);
-            tree->value = _strdup(value);
-            tree->key = key;
+            free(node->value);
+            node->value = _strdup(value);
+            node->key = key;
             break;
         }
     }
@@ -65,99 +65,116 @@ Node* addElement(Node* tree, int key, char* value)
     return root;
 }
 
-Node* searchInTree(Node* tree, int key)
+Node* searchInTree(Node* node, int key)
 {
-    while (tree != NULL)
+    while (node != NULL)
     {
-        if (key == tree->key)
+        if (key == node->key)
         {
-            return tree;
+            return node;
         }
-        else if (key < tree->key)
+        else if (key < node->key)
         {
-            tree = tree->leftChild;
+            node = node->leftChild;
         }
         else
         {
-            tree = tree->rightChild;
+            node = node->rightChild;
         }
     }
-    return tree;
+    return node;
 }
 
-char* getValueInTree(Node* tree)
+char* getValueInTree(Node* node)
 {
-    return tree->value;
+    return node->value;
 }
 
-Node* leftmostChild(Node* tree)
+Node* leftmostChild(Node* node)
 {
-    if (tree == NULL)
+    if (node == NULL)
     {
         return NULL;
     }
-    while (tree->leftChild != NULL)
+    while (node->leftChild != NULL)
     {
-        tree = tree->leftChild;
+        node = node->leftChild;
     }
-    return tree;
+    return node;
 }
 
-void deleteElement(Node* tree, int key)
+void deleteElement(Node* node, int key)
 {
-    if (tree == NULL)
+    if (node == NULL)
     {
         return;
     }
-    tree = searchInTree(tree, key);
-    if (tree == NULL)
+    Node* root = node;
+    node = searchInTree(node, key);
+    if (node == NULL)
     {
         return;
     }
-    Node* parent = tree->parent;
-    if (tree->leftChild == NULL && tree->rightChild == NULL)
+    Node* parent = node->parent;
+    if (node->leftChild == NULL && node->rightChild == NULL)
     {
         if (parent == NULL)
         {
-            free(tree->value);
-            free(tree);
-            return;
+            free(node->value);
+            free(node);
         }
-        if (parent->key > tree->key)
+        if (parent->key > node->key)
         {
-            free(tree->value);
-            free(tree);
+            free(node->value);
+            free(node);
             parent->leftChild = NULL;
         }
         else
         {
-            free(tree->value);
-            free(tree);
+            free(node->value);
+            free(node);
             parent->rightChild = NULL;
         }
     }
-    else if (tree->leftChild == NULL && tree->rightChild != NULL)
+    else if (node->leftChild == NULL && node->rightChild != NULL)
     {
-        parent->rightChild = tree->rightChild;
-        parent->rightChild->parent = parent;
-        free(tree->value);
-        free(tree);
+        if (parent != NULL)
+        {
+            parent->rightChild = node->rightChild;
+            parent->rightChild->parent = parent;
+            free(node->value);
+            free(node);
+        }
+        else
+        {
+            free(node->value);
+            free(node);
+        }
     }
-    else if (tree->rightChild == NULL && tree->leftChild != NULL)
+    else if (node->leftChild != NULL && node->rightChild == NULL)
     {
-        parent->leftChild = tree->leftChild;
-        parent->leftChild->parent = parent;
-        free(tree->value);
-        free(tree);
+        if (parent != NULL)
+        {
+            parent->leftChild = node->leftChild;
+            parent->leftChild->parent = parent;
+            free(node->value);
+            free(node);
+        }
+        else
+        {
+            free(node->value);
+            free(node);
+        }
     }
     else
     {
-        Node* minNode = leftmostChild(tree->rightChild);
-        tree->key = minNode->key;
-        free(tree->value);
-        tree->value = minNode->value;
+        Node* minNode = leftmostChild(node->rightChild);
+        int temp = minNode->key;
+        free(node->value);
+        node->value = minNode->value;
         minNode->value = NULL;
-        deleteElement(tree->rightChild, minNode->key);
+        deleteElement(root, minNode->key);
+        node->key = temp;
     }
 }
 
@@ -176,4 +193,13 @@ void deleteTree(Node* node)
         free(node->value);
         free(node);
     }
+}
+
+int countElements(Node* node)
+{
+    if (node == NULL)
+    {
+        return 0;
+    }
+    return 1 + countElements(node->leftChild) + countElements(node->rightChild);
 }

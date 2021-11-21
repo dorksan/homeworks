@@ -21,9 +21,15 @@
     <ClCompile Include="binarySearchTree.c">
       <Filter>Исходные файлы</Filter>
     </ClCompile>
+    <ClCompile Include="binarySearchTreeTests.c">
+      <Filter>Исходные файлы</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="binarySearchTree.h">
+      <Filter>Файлы заголовков</Filter>
+    </ClInclude>
+    <ClInclude Include="binarySearchTreeTests.h">
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
   </ItemGroup>

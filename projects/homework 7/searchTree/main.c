@@ -1,4 +1,5 @@
 #include "binarySearchTree.h"
+#include "binarySearchTreeTests.h"
 #include <stdio.h>
 #include <stdlib.h>
 
@@ -6,6 +7,10 @@
 
 int main()
 {
+    if (!areTestsPassed())
+    {
+        return -1;
+    }
     Node* tree = NULL;
     Node* temp = NULL;
     printf("\n0 – выйти\n1 – добавить значение по ключу");
