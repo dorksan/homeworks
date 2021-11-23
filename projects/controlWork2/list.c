@@ -151,8 +151,14 @@ List* reverse(List* list)
     {
         if (element->next == NULL)
         {
-            addElement(newList, element->value);
-            deleteElement(list, element->value);
+            int temp = element->value;
+            element = list->head;
+            while (element->next->value != temp)
+            {
+                addElement(newList, element->next->value);
+                deleteElement(list, element->next->value);
+                element = element->next;
+            }
         }
         element = element->next;
     }
