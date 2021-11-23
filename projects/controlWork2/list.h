@@ -35,3 +35,6 @@ void deleteElement(List* list, const int value);
 
 // Удаляет список
 void deleteList(List* list);
+
+// Переворачивает список
+List* reverse(List* list);
