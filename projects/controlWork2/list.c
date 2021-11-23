@@ -155,10 +155,10 @@ List* reverse(List* list)
             element = list->head;
             while (element->next->value != temp)
             {
-                addElement(newList, element->next->value);
-                deleteElement(list, element->next->value);
                 element = element->next;
             }
+            addElement(newList, element->next->value);
+            deleteElement(list, element->next->value);
         }
         element = element->next;
     }
