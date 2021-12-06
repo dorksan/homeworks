@@ -35,3 +35,6 @@ void deleteElement(List* list, Position* position);
 
 // Удаляет список
 void deleteList(List* list);
+
+// Проверяет, остался ли один элемент в списке
+bool isLastOne(List* list);

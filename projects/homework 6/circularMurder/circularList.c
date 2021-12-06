@@ -81,7 +81,6 @@ void addElement(List* list, Position* position, const int value)
     newElement->next = position->position->next;
     position->position->next = newElement;
     position->position = newElement;
-    return;
 }
 
 void deleteElement(List* list, Position* position)
@@ -107,7 +106,6 @@ void deleteElement(List* list, Position* position)
     element->next = position->position->next;
     free(position->position);
     position->position = element->next;
-    return;
 }
 
 void deleteList(List* list)
@@ -124,5 +122,16 @@ void deleteList(List* list)
     }
     free(list->head);
     free(list);
-    return;
+}
+
+bool isLastOne(List* list)
+{
+    if (list != NULL)
+    {
+        ListElement* temp = list->head;
+        if (temp != NULL)
+        {
+            return temp->value == temp->next->value;
+        }
+    }
 }

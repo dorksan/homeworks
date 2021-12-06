@@ -21,17 +21,15 @@ int main()
         printf("\nСписок пуст.");
     }
     int count = 1;
-    int pointer = 0;
-    while (1)
+    while (true)
     {
         count++;
         positionToNext(list, position);
         if (count == murderedWarrior)
         {
             deleteElement(list, position);
-            pointer++;
             count = 1;
-            if (numberOfWarriors - pointer == 1)
+            if (isLastOne(list))
             {
                 break;
             }
