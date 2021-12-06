@@ -4,7 +4,9 @@
 
 typedef struct ListElement
 {
-    int value;
+    char value;
+    int hash;
+    int count;
     struct ListElement* next;
 } ListElement;
 
@@ -67,7 +69,7 @@ int getValue(Position* position)
     return position->position->value;
 }
 
-void addElement(List* list, const int value)
+void addElement(List* list, const char value)
 {
     if (list == NULL)
     {
@@ -81,26 +83,12 @@ void addElement(List* list, const int value)
         list->head = newElement;
         return;
     }
-    if (value < element->value)
+    else
     {
         newElement->next = element;
         list->head = newElement;
         return;
     }
-    while (element->next != NULL && value >= element->next->value)
-    {
-        element = element->next;
-    }
-    if (element->next == NULL)
-    {
-        element->next = newElement;
-    }
-    else
-    {
-        newElement->next = element->next;
-        element->next = newElement;
-    }
-    return;
 }
 
 void deleteElement(List* list, const int value)
