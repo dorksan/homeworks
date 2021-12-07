@@ -44,12 +44,15 @@ bool testSort(void)
 }
 
 
-int main()
+int main(int argc, char* argv[])
 {
     if (!testSort())
     {
-        printf("Ошибка");
-        return -1;
+        return 111;
+    }
+    if (argc > 1)
+    {
+        return 0;
     }
     srand((unsigned)time(NULL));
     int* array = calloc(SIZE, sizeof(int));

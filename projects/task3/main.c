@@ -54,12 +54,15 @@ bool test(void)
     return true;
 }
 
-int main()
+int main(int argc, char* argv[])
 {
+    if (argc > 1)
+    {
+        return 0;
+    }
     if (!test())
     {
-        printf("Ошибка");
-        return -10;
+        return 111;
     }
     printf(file);
     printf("Запись в файл прошла успешно (наверное)");

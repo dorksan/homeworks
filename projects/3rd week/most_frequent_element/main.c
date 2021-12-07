@@ -95,12 +95,15 @@ bool testMostFrequentElementSearch(void)
         mostFrequentElementSearch(differentElements, SIZE_TWO) == 1;
 }
 
-int main()
+int main(int argc, char* argv[])
 {
     if (!testQSort() || !testMostFrequentElementSearch())
     {
-        printf("Ошибка");
-        return -1;
+        return 111;
+    }
+    if (argc > 1)
+    {
+        return 0;
     }
     srand((unsigned)time(NULL));
     printf("Введите длину массива: ");

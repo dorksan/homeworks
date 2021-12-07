@@ -56,11 +56,15 @@ bool testCompare(void)
     return false;
 }
 
-int main()
+int main(int argc, char* argv[])
 {
     if (!testBinaryToDecimal() || !testCompare())
     {
-        return -1;
+        return 111;
+    }
+    if (argc > 1)
+    {
+        return 0;
     }
     bool firstNumber[SIZE] = { true, false, false, false, false, true, true, true };
     bool secondNumber[SIZE] = { true, false, true, false, true, false, false, true };

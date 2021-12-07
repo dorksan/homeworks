@@ -3,8 +3,12 @@
 
 #define SIZE 100
 
-int main()
+int main(int argc, char* argv[])
 {
+    if (argc > 1)
+    {
+        return 0;
+    }
     FILE* file = fopen("file.txt", "r");
     if (file == NULL)
     {
