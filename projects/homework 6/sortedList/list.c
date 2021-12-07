@@ -75,6 +75,10 @@ void addElement(List* list, const int value)
     }
     ListElement* element = list->head;
     ListElement* newElement = calloc(1, sizeof(ListElement));
+    if (newElement == NULL)
+    {
+        return;
+    }
     newElement->value = value;
     if (element == NULL)
     {
@@ -100,7 +104,6 @@ void addElement(List* list, const int value)
         newElement->next = element->next;
         element->next = newElement;
     }
-    return;
 }
 
 void deleteElement(List* list, const int value)
@@ -131,7 +134,6 @@ void deleteElement(List* list, const int value)
         }
         element = element->next;
     }
-    return;
 }
 
 void deleteList(List* list)
@@ -147,5 +149,4 @@ void deleteList(List* list)
         list->head = newListElement;
     }
     free(list);
-    return;
 }
