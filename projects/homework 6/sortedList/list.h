@@ -35,3 +35,6 @@ void deleteElement(List* list, const int value);
 
 // Удаляет список
 void deleteList(List* list);
+
+// Выводит все значения, содержащиеся в списке
+void printList(List* list, int* result);

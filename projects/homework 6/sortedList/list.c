@@ -150,3 +150,21 @@ void deleteList(List* list)
     }
     free(list);
 }
+
+void printList(List* list, int* result)
+{
+    Position* position = createPosition(list);
+    positionToHead(list, position);
+    if (isPositionNull(position))
+    {
+        return 1;
+    }
+    int pointer = 0;
+    while (!isPositionNull(position))
+    {
+        result[pointer] = getValue(position);
+        pointer++;
+        positionToNext(position);
+    }
+    deletePosition(position);
+}

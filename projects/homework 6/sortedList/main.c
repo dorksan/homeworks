@@ -1,8 +1,13 @@
 #include "list.h"
+#include "testList.h"
 #include <stdio.h>
 
 int main()
 {
+    if (!areTestsPassed())
+    {
+        return 111;
+    }
     List* list = createList();
     printf("\n0 – выйти");
     printf("\n1 – добавить значение в сортированный список");
