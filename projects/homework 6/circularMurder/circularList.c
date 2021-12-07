@@ -89,23 +89,16 @@ void deleteElement(List* list, Position* position)
     {
         return;
     }
-    ListElement* element = list->head;
-    while (element->next != position->position)
+    ListElement* element = position->position;
+    ListElement* temp = element->next;
+    ListElement* newElement = element->next->next;
+    if (temp == list->head)
     {
-        element = element->next;
+        list->head = newElement;
     }
-    if (list->head == position->position)
-    {
-        ListElement* oldHead = list->head;
-        list->head = list->head->next;
-        free(oldHead);
-        position->position = list->head;
-        element->next = list->head;
-        return;
-    }
-    element->next = position->position->next;
-    free(position->position);
-    position->position = element->next;
+    element->next = newElement;
+    position->position = newElement;
+    free(temp);
 }
 
 void deleteList(List* list)

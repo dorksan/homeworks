@@ -25,7 +25,7 @@ int main()
     {
         count++;
         positionToNext(list, position);
-        if (count == murderedWarrior)
+        if (count == murderedWarrior - 1)
         {
             deleteElement(list, position);
             count = 1;
