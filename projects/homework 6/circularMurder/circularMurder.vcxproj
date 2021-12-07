@@ -140,10 +140,14 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="circularList.c" />
+    <ClCompile Include="circularListAndSearchFunctionTests.c" />
     <ClCompile Include="main.c" />
+    <ClCompile Include="searchLastWarrior.c" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="circularList.h" />
+    <ClInclude Include="circularListAndSearchFunctionTests.h" />
+    <ClInclude Include="searchLastWarrior.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

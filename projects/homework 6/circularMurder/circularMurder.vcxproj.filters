@@ -21,9 +21,21 @@
     <ClCompile Include="circularList.c">
       <Filter>Исходные файлы</Filter>
     </ClCompile>
+    <ClCompile Include="circularListAndSearchFunctionTests.c">
+      <Filter>Исходные файлы</Filter>
+    </ClCompile>
+    <ClCompile Include="searchLastWarrior.c">
+      <Filter>Исходные файлы</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="circularList.h">
+      <Filter>Файлы заголовков</Filter>
+    </ClInclude>
+    <ClInclude Include="circularListAndSearchFunctionTests.h">
+      <Filter>Файлы заголовков</Filter>
+    </ClInclude>
+    <ClInclude Include="searchLastWarrior.h">
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
   </ItemGroup>
