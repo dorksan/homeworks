@@ -11,6 +11,7 @@ bool testAddAndGetStringFunction(void)
     Node* node = createTree(inputString);
     char outputString[SIZE] = { '\0' };
     getString(node, outputString, SIZE);
+    deleteTreeRecursive(node);
     return strcmp(inputString, outputString) == 0;
 }
 
@@ -22,8 +23,14 @@ bool testGetResultFunction(void)
     Node* nodeOne = createTree(inputStringOne);
     Node* nodeTwo = createTree(inputStringTwo);
     Node* nodeThree = createTree(inputStringThree);
-    return getResult(nodeOne) == -28 && getResult(nodeTwo) == 4
-        && getResult(nodeThree) == 4;
+    int resultOne = getResult(nodeOne);
+    int resultTwo = getResult(nodeTwo);
+    int resultThree = getResult(nodeThree);
+    deleteTreeRecursive(nodeOne);
+    deleteTreeRecursive(nodeTwo);
+    deleteTreeRecursive(nodeThree);
+    return resultOne == -28 && resultTwo == 4
+        && resultThree == 4;
 }
 
 bool areTestsPassed(void)
