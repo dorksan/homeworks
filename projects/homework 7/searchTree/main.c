@@ -9,7 +9,7 @@ int main()
 {
     if (!areTestsPassed())
     {
-        return -1;
+        return 111;
     }
     Node* tree = NULL;
     Node* temp = NULL;
@@ -18,7 +18,7 @@ int main()
     printf("\n3 – проверить наличие ключа");
     printf("\n4 - удалить ключ и связанное с ним значение\n");
     int pointer = 0;
-    while (1)
+    while (true)
     {
         printf("\nВведите команду: ");
         int input = 0;
@@ -29,9 +29,8 @@ int main()
         {
         case 0:
             printf("\nВы вышли из программы.\n");
-            deleteTree(tree);
+            tree = deleteTree(tree);
             return -1;
-            break;
         case 1:
             printf("Введите ключ: ");
             scanf_s("%d", &key);
@@ -77,8 +76,16 @@ int main()
         case 4:
             printf("Введите ключ: ");
             scanf_s("%d", &key);
-            deleteElement(tree, key);
-            pointer--;
+            if (tree == NULL)
+            {
+                printf("Значение не содержится в дереве.\n");
+            }
+            else
+            {
+                tree = deleteElement(tree, key);
+                printf("Значение удалено.\n");
+                pointer--;
+            }
             break;
         default:
             printf("\nНеправильный ввод команды.\n");

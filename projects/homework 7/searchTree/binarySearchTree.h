@@ -18,10 +18,10 @@ char* getValueInTree(Node* node);
 Node* leftmostChild(Node* node);
 
 // Удаляет элемент
-void deleteElement(Node* node, int key);
+Node* deleteElement(Node* node, int key);
 
 // Удаляет дерево
-void deleteTree(Node* node);
+Node* deleteTree(Node* node);
 
 // Подсчет количества элементов в дереве (используется в тестах)
 int countElements(Node* node);

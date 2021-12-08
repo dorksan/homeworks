@@ -59,7 +59,6 @@ Node* addElement(Node* node, int key, char* value)
     else
     {
         parent->rightChild = newTree;
-
     }
     newTree->parent = parent;
     return root;
@@ -67,6 +66,10 @@ Node* addElement(Node* node, int key, char* value)
 
 Node* searchInTree(Node* node, int key)
 {
+    if (node == NULL)
+    {
+        return NULL;
+    }
     while (node != NULL)
     {
         if (key == node->key)
@@ -103,17 +106,17 @@ Node* leftmostChild(Node* node)
     return node;
 }
 
-void deleteElement(Node* node, int key)
+Node* deleteElement(Node* node, int key)
 {
     if (node == NULL)
     {
-        return;
+        return NULL;
     }
     Node* root = node;
     node = searchInTree(node, key);
     if (node == NULL)
     {
-        return;
+        return root;
     }
     Node* parent = node->parent;
     if (node->leftChild == NULL && node->rightChild == NULL)
@@ -122,6 +125,7 @@ void deleteElement(Node* node, int key)
         {
             free(node->value);
             free(node);
+            return NULL;
         }
         if (parent->key > node->key)
         {
@@ -176,23 +180,26 @@ void deleteElement(Node* node, int key)
         deleteElement(root, minNode->key);
         node->key = temp;
     }
+    return root;
 }
 
-void deleteTree(Node* node)
+Node* deleteTree(Node* node)
 {
-    if (node != NULL)
+    if (node == NULL)
     {
-        if (node->leftChild != NULL)
-        {
-            deleteTree(node->leftChild);
-        }
-        if (node->rightChild != NULL)
-        {
-            deleteTree(node->rightChild);
-        }
-        free(node->value);
-        free(node);
+        return NULL;
     }
+    if (node->leftChild != NULL)
+    {
+        deleteTree(node->leftChild);
+    }
+    if (node->rightChild != NULL)
+    {
+        deleteTree(node->rightChild);
+    }
+    free(node->value);
+    free(node);
+    return NULL;
 }
 
 int countElements(Node* node)
