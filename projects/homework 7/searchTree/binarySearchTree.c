@@ -13,12 +13,24 @@ typedef struct Node
     struct Node* parent;
 } Node;
 
+char* addValue(char* value)
+{
+    const int length = strlen(value) + 1;
+    char* temp = calloc(length, sizeof(value));
+    if (temp == NULL)
+    {
+        return NULL;
+    }
+    strcpy_s(temp, length, value);
+    return temp;
+}
+
 Node* createTree(int key, char* value)
 {
     Node* node = calloc(1, sizeof(Node));
     if (node != NULL)
     {
-        node->value = _strdup(value);
+        node->value = addValue(value);
         node->key = key;
     }
     return node;
@@ -46,7 +58,8 @@ Node* addElement(Node* node, int key, char* value)
         else
         {
             free(node->value);
-            node->value = _strdup(value);
+            node->value = addValue(value);
+            node->key = key;
             node->key = key;
             break;
         }
