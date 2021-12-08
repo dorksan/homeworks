@@ -1,4 +1,5 @@
 #include "parseTree.h"
+#include "testParseTree.h"
 #include <stdio.h>
 #include <stdlib.h>
 

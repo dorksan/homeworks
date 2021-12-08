@@ -47,25 +47,23 @@ Node* createTreeRecursive(const char* string, int* index)
         }
         default:
         {
-            int powerOfTen = 1;
+            // я не знаю, как сделать это без powerOfTen
+            int temp = *index;
             int counter = 0;
-            int invertedNumber = 0;
-            while ('0' <= string[*index] && string[*index] <= '9')
-            {
-                invertedNumber += (string[*index] - '0') * powerOfTen;
-                powerOfTen *= 10;
-                counter++;
-                (*index)++;
-            }
+            int powerOfTen = 1;
             int result = 0;
+            while ('0' <= string[temp] && string[temp] <= '9')
+            {
+                counter++;
+                powerOfTen *= 10;
+                temp++;
+            }
             powerOfTen /= 10;
-            int newPowerOfTen = 1;
             for (int i = 0; i < counter; i++)
             {
-                result += invertedNumber / powerOfTen * newPowerOfTen;
-                invertedNumber %= powerOfTen;
-                newPowerOfTen *= 10;
+                result += (string[*index] - '0') * powerOfTen;
                 powerOfTen /= 10;
+                (*index)++;
             }
             result *= sign;
             Node* node = createNode();

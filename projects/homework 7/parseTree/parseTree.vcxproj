@@ -145,9 +145,11 @@
   <ItemGroup>
     <ClCompile Include="main.c" />
     <ClCompile Include="parseTree.c" />
+    <ClCompile Include="testParseTree.c" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="parseTree.h" />
+    <ClInclude Include="testParseTree.h" />
   </ItemGroup>
   <ItemGroup>
     <Text Include="file.txt" />
