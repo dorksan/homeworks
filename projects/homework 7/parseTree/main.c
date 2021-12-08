@@ -7,6 +7,10 @@
 
 int main()
 {
+    if (!areTestsPassed())
+    {
+        return 111;
+    }
     FILE* file = fopen("file.txt", "r");
     if (file == NULL)
     {
