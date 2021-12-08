@@ -19,4 +19,5 @@ int main()
     getString(node, outputString, SIZE);
     printf("Исходное выражение: %s\n", outputString);
     printf("Результат выражения: %d\n", getResult(node));
+    deleteTreeRecursive(node);
 }

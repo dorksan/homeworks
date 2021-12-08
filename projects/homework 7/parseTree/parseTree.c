@@ -10,8 +10,7 @@ typedef struct Node
 
 Node* createNode()
 {
-    Node* node = calloc(1, sizeof(Node));
-    return node;
+    return calloc(1, sizeof(Node));
 }
 
 Node* createTreeRecursive(const char* string, int* index)
@@ -51,7 +50,7 @@ Node* createTreeRecursive(const char* string, int* index)
             int powerOfTen = 1;
             int counter = 0;
             int invertedNumber = 0;
-            while (48 <= string[*index] && string[*index] <= 57)
+            while ('0' <= string[*index] && string[*index] <= '9')
             {
                 invertedNumber += (string[*index] - '0') * powerOfTen;
                 powerOfTen *= 10;
@@ -95,21 +94,18 @@ int getResult(Node* node)
     {
         return node->value;
     }
-    else
+    int leftValue = getResult(node->leftChild);
+    int rightValue = getResult(node->rightChild);
+    switch (node->value)
     {
-        int leftValue = getResult(node->leftChild);
-        int rightValue = getResult(node->rightChild);
-        switch (node->value)
-        {
-        case '*':
-            return leftValue * rightValue;
-        case '/':
-            return leftValue / rightValue;
-        case '+':
-            return leftValue + rightValue;
-        case '-':
-            return leftValue - rightValue;
-        }
+    case '*':
+        return leftValue * rightValue;
+    case '/':
+        return leftValue / rightValue;
+    case '+':
+        return leftValue + rightValue;
+    case '-':
+        return leftValue - rightValue;
     }
     return 0;
 }
@@ -119,7 +115,7 @@ void getStringRecursive(Node* node, char* string, int size, int* index)
     if (node->leftChild == NULL || node->rightChild == NULL)
     {
         char* buffer = calloc(size, sizeof(char));
-        _itoa_s(node->value, buffer, size, 10);
+        itoa(node->value, buffer, 10);
         int counter = 0;
         while (buffer[counter] != '\0' && (*index < size))
         {
@@ -155,4 +151,21 @@ void getString(Node* node, char* string, int size)
     int index = 0;
     getStringRecursive(node, string, size, &index);
     string[index] = '\0';
+}
+
+void deleteTreeRecursive(Node* node)
+{
+    if (node == NULL)
+    {
+        return;
+    }
+    if (node->leftChild != NULL)
+    {
+        deleteTreeRecursive(node->leftChild);
+    }
+    if (node->rightChild != NULL)
+    {
+        deleteTreeRecursive(node->rightChild);
+    }
+    free(node);
 }
