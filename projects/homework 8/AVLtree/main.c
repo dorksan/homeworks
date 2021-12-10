@@ -77,8 +77,16 @@ int main()
         case 4:
             printf("Введите ключ: ");
             scanf_s("%s", &key, SIZE);
-            tree = deleteElement(tree, key);
-            pointer--;
+            if (tree == NULL)
+            {
+                printf("Ключ не найден.\n");
+            }
+            else
+            {
+                tree = deleteElement(tree, key);
+                printf("Значение удалено.\n");
+                pointer--;
+            }
             break;
         default:
             printf("\nНеправильный ввод команды.\n");
