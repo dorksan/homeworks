@@ -79,7 +79,7 @@ int main()
             scanf_s("%d", &key);
             if (tree == NULL)
             {
-                printf("Значение не содержится в дереве.\n");
+                printf("Ключ не найден.\n");
             }
             else
             {
