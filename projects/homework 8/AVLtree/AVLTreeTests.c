@@ -4,68 +4,86 @@
 #include <stdlib.h>
 #include <string.h>
 
-bool isTestOnePassed(void)
+bool testAddAndGetValueFunction(void)
 {
-    Node* treeTest = createTree("10", "aaaaa");
-    treeTest = addElement(treeTest, "10", "bbbbb");
-    Node* temp = searchInTree(treeTest, "10");
-    int result = strcmp(getValueInTree(temp), "bbbbb");
-    return result == 0;
+    Node* tree = createTree("10", "aaaaa");
+    tree = addElement(tree, "10", "bbbbb");
+    Node* temp = searchInTree(tree, "10");
+    int resultOne = strcmp(getValueInTree(temp), "bbbbb");
+    int resultTwo = strcmp(getValueInTree(temp), "aaaaa");
+    tree = deleteTree(tree);
+    return resultOne == 0 && resultTwo != 0;
 }
 
-bool isTestTwoPassed(void)
+bool testDeleteAndSearchFunction(void)
 {
-    Node* treeTest = createTree("10", "aaaaa");
-    treeTest = addElement(treeTest, "12", "bbbbb");
-    treeTest = deleteElement(treeTest, "10");
-    return searchInTree(treeTest, "10") == NULL && searchInTree(treeTest, "12") != NULL
-        && searchInTree(treeTest, "8") == NULL;
+    Node* tree = createTree("10", "aaaaa");
+    tree = addElement(tree, "12", "bbbbb");
+    tree = addElement(tree, "8", "ccccc");
+    tree = deleteElement(tree, "10");
+    tree = deleteElement(tree, "20");
+    bool isTenInTree = searchInTree(tree, "10") == NULL;
+    bool isTwelveInTree = searchInTree(tree, "12") == NULL;
+    bool isEightInTree = searchInTree(tree, "8") == NULL;
+    bool isSevenInTree = searchInTree(tree, "7") == NULL;
+    bool isTwentyInTree = searchInTree(tree, "20") == NULL;
+    tree = deleteTree(tree);
+    return isTenInTree && !isTwelveInTree && !isEightInTree
+        && isSevenInTree && isTwentyInTree;
 }
 
-bool isTestThreePassed(void)
+bool checkNumberOfElements(void)
 {
-    Node* treeTest = createTree("10", "aaaaa");
-    treeTest = addElement(treeTest, "12", ":)");
-    treeTest = addElement(treeTest, "8", ":(");
-    treeTest = deleteElement(treeTest, "10");
-    treeTest = addElement(treeTest, "15", "nya");
-    treeTest = addElement(treeTest, "25", "25");
-    treeTest = deleteElement(treeTest, "8");
-    int count = countElements(treeTest);
+    Node* tree = createTree("10", "aaaaa");
+    tree = addElement(tree, "12", ":)");
+    tree = addElement(tree, "8", ":(");
+    tree = deleteElement(tree, "10");
+    tree = addElement(tree, "15", "nya");
+    tree = addElement(tree, "25", "25");
+    tree = deleteElement(tree, "8");
+    int count = countElements(tree);
+    tree = deleteTree(tree);
     return count == 3;
 }
 
-int isTestFourPassed(void)
+int checkHeight(void)
 {
-    Node* treeTest = createTree("10", "aaaaa");
-    treeTest = addElement(treeTest, "12", ":)");
-    treeTest = addElement(treeTest, "8", ":(");
-    treeTest = addElement(treeTest, "15", "nya");
-    treeTest = addElement(treeTest, "25", "25");
-    treeTest = deleteElement(treeTest, "10");
-    treeTest = addElement(treeTest, "11", "pamagiti");
-    treeTest = addElement(treeTest, "14", "-----");
-    treeTest = deleteElement(treeTest, "25");
-    treeTest = deleteElement(treeTest, "14");
-    int height = heightSearch(treeTest);
-    return height == 2;
+    Node* tree = createTree("J", "aaaaa");
+    tree = addElement(tree, "L", ":)");
+    tree = addElement(tree, "H", ":(");
+    tree = addElement(tree, "O", "nya");
+    tree = addElement(tree, "Y", "25");
+    tree = deleteElement(tree, "J");
+    tree = addElement(tree, "K", "pamagiti");
+    tree = addElement(tree, "N", "-----");
+    tree = deleteElement(tree, "Y");
+    tree = deleteElement(tree, "N");
+    int height = heightSearch(tree);
+    tree = deleteTree(tree);
+    return height == 3;
 }
 
-int isTestFivePassed(void)
+int testBalanceSearchFunction(void)
 {
-    Node* treeTestOne = createTree("10", "aaaaa");
-    treeTestOne = addElement(treeTestOne, "12", "bbbbb");
-    treeTestOne = addElement(treeTestOne, "8", "ccccc");
-    Node* treeTestTwo = createTree("5", "meow");
-    treeTestTwo = addElement(treeTestTwo, "8", "meowmeow");
-    Node* treeTestThree = createTree("5", "woof");
-    treeTestThree = addElement(treeTestThree, "3", "woofwoof");
-    return balanceSearch(treeTestOne) == 0 && balanceSearch(treeTestTwo) == 1
-        && balanceSearch(treeTestThree) == -1;
+    Node* treeOne = createTree("10", "aaaaa");
+    treeOne = addElement(treeOne, "12", "bbbbb");
+    treeOne = addElement(treeOne, "8", "ccccc");
+    Node* treeTwo = createTree("5", "meow");
+    treeTwo = addElement(treeTwo, "8", "meowmeow");
+    Node* treeThree = createTree("5", "woof");
+    treeThree = addElement(treeThree, "3", "woofwoof");
+    bool balanceOne = balanceSearch(treeOne) == 0;
+    bool balanceTwo = balanceSearch(treeTwo) == 1;
+    bool balanceThree = balanceSearch(treeThree) == -1;
+    treeOne = deleteTree(treeOne);
+    treeTwo = deleteTree(treeTwo);
+    treeThree = deleteTree(treeThree);
+    return balanceOne && balanceTwo && balanceThree;
 }
 
 bool areTestsPassed(void)
 {
-    return isTestOnePassed() && isTestTwoPassed() && isTestThreePassed()
-        && isTestFourPassed() && isTestFivePassed();
+    return testAddAndGetValueFunction() && testDeleteAndSearchFunction()
+        && checkNumberOfElements() && checkHeight()
+        && testBalanceSearchFunction();
 }

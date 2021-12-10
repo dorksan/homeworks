@@ -2,7 +2,7 @@
 #include <stdlib.h>
 #include <string.h>
 
-#define SIZE 30;
+#define SIZE 30
 
 typedef struct Node
 {
@@ -40,6 +40,20 @@ Node* createTree(char* key, char* value)
 int heightSearch(Node* node)
 {
     int height = 0;
+    int leftHeight = 0;
+    int rightHeight = 0;
+    if (node == NULL)
+    {
+        height = 0;
+    }
+    else
+    {
+        leftHeight = heightSearch(node->leftChild);
+        rightHeight = heightSearch(node->rightChild);
+        height = 1 + max(leftHeight, rightHeight);
+    }
+    return height;
+   /* int height = 0;
     if (node->leftChild == NULL && node->rightChild == NULL)
     {
         height = 0;
@@ -62,28 +76,30 @@ int heightSearch(Node* node)
         rightHeight += heightSearch(node->rightChild);
         height = max(leftHeight, rightHeight);
     }
-    return height;
+    return height;*/
 }
 
 int balanceSearch(Node* node)
 {
-    if (node->leftChild == NULL && node->rightChild == NULL)
-    {
-        node->balanceFactor = 0;
-    }
-    else if (node->leftChild != NULL && node->rightChild == NULL)
-    {
-        node->balanceFactor = -1 - heightSearch(node->leftChild);
-    }
-    else if (node->leftChild == NULL && node->rightChild != NULL)
-    {
-        node->balanceFactor = 1 + heightSearch(node->rightChild);
-    }
-    else if (node->leftChild != NULL && node->rightChild != NULL)
-    {
-        node->balanceFactor = heightSearch(node->rightChild) - heightSearch(node->leftChild);
-    }
-    return node->balanceFactor;
+    //if (node->leftChild == NULL && node->rightChild == NULL)
+    //{
+    //    node->balanceFactor = 0;
+    //}
+    //else if (node->leftChild != NULL && node->rightChild == NULL)
+    //{
+    //    node->balanceFactor = -1 - heightSearch(node->leftChild);
+    //}
+    //else if (node->leftChild == NULL && node->rightChild != NULL)
+    //{
+    //    node->balanceFactor = 1 + heightSearch(node->rightChild);
+    //}
+    //else if (node->leftChild != NULL && node->rightChild != NULL)
+    //{
+    //    node->balanceFactor = heightSearch(node->rightChild) - heightSearch(node->leftChild);
+    //}
+    int leftBalance = heightSearch(node->leftChild);
+    int rightBalance = heightSearch(node->rightChild);
+    return node->balanceFactor = rightBalance - leftBalance;
 }
 
 Node* rotateLeft(Node* node)
@@ -144,10 +160,7 @@ Node* balance(Node* node)
         {
             return rotateLeft(node);
         }
-        else
-        {
-            return bigRotateLeft(node);
-        }
+        return bigRotateLeft(node);
     }
     if (node->balanceFactor == -2)
     {
@@ -155,10 +168,7 @@ Node* balance(Node* node)
         {
             return rotateRight(node);
         }
-        else
-        {
-            return bigRotateRight(node);
-        }
+        return bigRotateRight(node);
     }
     return node;
 }
@@ -189,9 +199,9 @@ Node* addElement(Node* node, char* key, char* value)
     {
         return NULL;
     }
-    int matchString = strcmp(key, node->key);
     while (node != NULL)
     {
+        int matchString = strcmp(key, node->key);
         parent = node;
         if (matchString < 0)
         {
@@ -228,9 +238,9 @@ Node* searchInTree(Node* node, char* key)
     {
         return NULL;
     }
-    int matchString = strcmp(key, node->key);
     while (node != NULL)
     {
+        int matchString = strcmp(key, node->key);
         if (matchString == 0)
         {
             return node;
@@ -306,8 +316,17 @@ Node* deleteElement(Node* node, char* key)
     {
         if (parent != NULL)
         {
-            parent->rightChild = node->rightChild;
-            parent->rightChild->parent = parent;
+            int matchString = strcmp(parent->key, node->key);
+            if (matchString < 0)
+            {
+                parent->rightChild = node->rightChild;
+                parent->rightChild->parent = parent;
+            }
+            else
+            {
+                parent->leftChild = node->rightChild;
+                parent->leftChild->parent = parent;
+            }
             free(node->value);
             free(node);
             return balanceAllTree(root, parent->key);
@@ -324,8 +343,17 @@ Node* deleteElement(Node* node, char* key)
     {
         if (parent != NULL)
         {
-            parent->leftChild = node->leftChild;
-            parent->leftChild->parent = parent;
+            int matchString = strcmp(parent->key, node->key);
+            if (matchString < 0)
+            {
+                parent->rightChild = node->leftChild;
+                parent->rightChild->parent = parent;
+            }
+            else
+            {
+                parent->leftChild = node->leftChild;
+                parent->leftChild->parent = parent;
+            }
             free(node->value);
             free(node);
             return balanceAllTree(root, parent->key);
@@ -338,18 +366,18 @@ Node* deleteElement(Node* node, char* key)
             return root;
         }
     }
-    else
+    Node* minNode = leftmostChild(node->rightChild);
+    char* temp = calloc(SIZE, sizeof(char));
+    if (temp == NULL)
     {
-        Node* minNode = leftmostChild(node->rightChild);
-        char* temp = "";
-        strcpy_s(temp, strlen(minNode->key), minNode->key);
-        free(node->value);
-        node->value = minNode->value;
-        minNode->value = NULL;
-        root = deleteElement(root, minNode->key);
-        node->key = temp;
         return root;
     }
+    strcpy_s(temp, SIZE, minNode->key);
+    free(node->value);
+    node->value = minNode->value;
+    minNode->value = NULL;
+    root = deleteElement(root, minNode->key);
+    node->key = temp;
     return root;
 }
 
@@ -359,14 +387,8 @@ Node* deleteTree(Node* node)
     {
         return NULL;
     }
-    if (node->leftChild != NULL)
-    {
-        deleteTree(node->leftChild);
-    }
-    if (node->rightChild != NULL)
-    {
-        deleteTree(node->rightChild);
-    }
+    deleteTree(node->leftChild);
+    deleteTree(node->rightChild);
     free(node->value);
     free(node);
     return NULL;
