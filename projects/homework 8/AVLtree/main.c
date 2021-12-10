@@ -9,11 +9,12 @@ int main()
 {
     if (!areTestsPassed())
     {
-        return -1;
+        return 111;
     }
     Node* tree = NULL;
     Node* temp = NULL;
-    printf("\n0 – выйти\n1 – добавить значение по ключу");
+    printf("\n0 – выйти");
+    printf("\n1 – добавить значение по ключу");
     printf("\n2 – получить значение по ключу");
     printf("\n3 – проверить наличие ключа");
     printf("\n4 - удалить ключ и связанное с ним значение\n");
@@ -23,18 +24,17 @@ int main()
         printf("\nВведите команду: ");
         int input = 0;
         scanf_s("%d", &input);
-        int key = 0;
+        char key[SIZE] = { 0 };
         char value[SIZE] = { 0 };
         switch (input)
         {
         case 0:
             printf("\nВы вышли из программы.\n");
-            deleteTree(tree);
+            tree = deleteTree(tree);
             return -1;
-            break;
         case 1:
             printf("Введите ключ: ");
-            scanf_s("%d", &key);
+            scanf_s("%s", &key, SIZE);
             printf("Введите значение: ");
             scanf_s("%s", &value, SIZE);
             if (pointer == 0)
@@ -49,7 +49,7 @@ int main()
             break;
         case 2:
             printf("Введите ключ: ");
-            scanf_s("%d", &key);
+            scanf_s("%s", &key, SIZE);
             temp = searchInTree(tree, key);
             if (temp != NULL)
             {
@@ -63,7 +63,7 @@ int main()
             break;
         case 3:
             printf("Введите ключ: ");
-            scanf_s("%d", &key);
+            scanf_s("%s", &key, SIZE);
             temp = searchInTree(tree, key);
             if (temp == NULL)
             {
@@ -76,7 +76,7 @@ int main()
             break;
         case 4:
             printf("Введите ключ: ");
-            scanf_s("%d", &key);
+            scanf_s("%s", &key, SIZE);
             tree = deleteElement(tree, key);
             pointer--;
             break;

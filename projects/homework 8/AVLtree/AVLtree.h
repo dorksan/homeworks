@@ -3,7 +3,7 @@
 typedef struct Node Node;
 
 // Создает дерево
-Node* createTree(int key, char* value);
+Node* createTree(char* key, char* value);
 
 // Подсчитывает высоту поддерева от заданного узла
 int heightSearch(Node* node);
@@ -24,13 +24,13 @@ Node* bigRotateLeft(Node* node);
 Node* bigRotateRight(Node* node);
 
 // Балансирует дерево
-Node* balanceAllTree(Node* node, int key);
+Node* balanceAllTree(Node* node, char* key);
 
 // Добавляет элемент
-Node* addElement(Node* node, int key, char* value);
+Node* addElement(Node* node, char* key, char* value);
 
 // Поиск элемента в дереве
-Node* searchInTree(Node* node, int key);
+Node* searchInTree(Node* node, char* key);
 
 // Получение значение по заданному узлу
 char* getValueInTree(Node* node);
@@ -39,10 +39,10 @@ char* getValueInTree(Node* node);
 Node* leftmostChild(Node* node);
 
 // Удаляет элемент
-Node* deleteElement(Node* node, int key);
+Node* deleteElement(Node* node, char* key);
 
 // Удаляет дерево
-void deleteTree(Node* node);
+Node* deleteTree(Node* node);
 
 // Подсчет количества элементов в дереве (используется в тестах)
 int countElements(Node* node);

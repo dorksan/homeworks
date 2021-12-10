@@ -2,9 +2,11 @@
 #include <stdlib.h>
 #include <string.h>
 
+#define SIZE 30;
+
 typedef struct Node
 {
-    int key;
+    char* key;
     char* value;
     int balanceFactor;
     struct Node* leftChild;
@@ -12,13 +14,25 @@ typedef struct Node
     struct Node* parent;
 } Node;
 
-Node* createTree(int key, char* value)
+char* addString(char* value)
+{
+    const int length = strlen(value) + 1;
+    char* temp = calloc(length, sizeof(value));
+    if (temp == NULL)
+    {
+        return NULL;
+    }
+    strcpy_s(temp, length, value);
+    return temp;
+}
+
+Node* createTree(char* key, char* value)
 {
     Node* node = calloc(1, sizeof(Node));
     if (node != NULL)
     {
-        node->value = _strdup(value);
-        node->key = key;
+        node->value = addString(value);
+        node->key = addString(key);
     }
     return node;
 }
@@ -149,11 +163,12 @@ Node* balance(Node* node)
     return node;
 }
 
-Node* balanceAllTree(Node* node, int key)
+Node* balanceAllTree(Node* node, char* key)
 {
-    if (node->key != key)
+    int matchString = strcmp(key, node->key);
+    if (matchString != 0)
     {
-        if (key < node->key)
+        if (matchString < 0)
         {
             node->leftChild = balanceAllTree(node->leftChild, key);
         }
@@ -166,7 +181,7 @@ Node* balanceAllTree(Node* node, int key)
     return balance(node);
 }
 
-Node* addElement(Node* node, int key, char* value)
+Node* addElement(Node* node, char* key, char* value)
 {
     Node* root = node;
     Node* parent = node;
@@ -174,27 +189,28 @@ Node* addElement(Node* node, int key, char* value)
     {
         return NULL;
     }
+    int matchString = strcmp(key, node->key);
     while (node != NULL)
     {
         parent = node;
-        if (key < node->key)
+        if (matchString < 0)
         {
             node = node->leftChild;
         }
-        else if (key > node->key)
+        else if (matchString > 0)
         {
             node = node->rightChild;
         }
         else
         {
             free(node->value);
-            node->value = _strdup(value);
-            node->key = key;
+            node->value = addString(value);
+            node->key = addString(key);
             break;
         }
     }
     Node* newNode = createTree(key, value);
-    if (key < parent->key)
+    if (strcmp(key, parent->key) < 0)
     {
         parent->leftChild = newNode;
     }
@@ -206,15 +222,20 @@ Node* addElement(Node* node, int key, char* value)
     return balanceAllTree(root, parent->key);
 }
 
-Node* searchInTree(Node* node, int key)
+Node* searchInTree(Node* node, char* key)
 {
+    if (node == NULL)
+    {
+        return NULL;
+    }
+    int matchString = strcmp(key, node->key);
     while (node != NULL)
     {
-        if (key == node->key)
+        if (matchString == 0)
         {
             return node;
         }
-        else if (key < node->key)
+        else if (matchString < 0)
         {
             node = node->leftChild;
         }
@@ -244,7 +265,7 @@ Node* leftmostChild(Node* node)
     return node;
 }
 
-Node* deleteElement(Node* node, int key)
+Node* deleteElement(Node* node, char* key)
 {
     if (node == NULL)
     {
@@ -265,7 +286,8 @@ Node* deleteElement(Node* node, int key)
             free(node);
             return NULL;
         }
-        if (parent->key > node->key)
+        int matchString = strcmp(parent->key, node->key);
+        if (matchString > 0)
         {
             free(node->value);
             free(node);
@@ -319,7 +341,8 @@ Node* deleteElement(Node* node, int key)
     else
     {
         Node* minNode = leftmostChild(node->rightChild);
-        int temp = minNode->key;
+        char* temp = "";
+        strcpy_s(temp, strlen(minNode->key), minNode->key);
         free(node->value);
         node->value = minNode->value;
         minNode->value = NULL;
@@ -327,23 +350,26 @@ Node* deleteElement(Node* node, int key)
         node->key = temp;
         return root;
     }
+    return root;
 }
 
-void deleteTree(Node* node)
+Node* deleteTree(Node* node)
 {
-    if (node != NULL)
+    if (node == NULL)
     {
-        if (node->leftChild != NULL)
-        {
-            deleteTree(node->leftChild);
-        }
-        if (node->rightChild != NULL)
-        {
-            deleteTree(node->rightChild);
-        }
-        free(node->value);
-        free(node);
+        return NULL;
     }
+    if (node->leftChild != NULL)
+    {
+        deleteTree(node->leftChild);
+    }
+    if (node->rightChild != NULL)
+    {
+        deleteTree(node->rightChild);
+    }
+    free(node->value);
+    free(node);
+    return NULL;
 }
 
 int countElements(Node* node)
