@@ -4,7 +4,7 @@
 #include <stdlib.h>
 #include <string.h>
 
-bool testAddAndGetValueFunction(void)
+bool testAddAndGetValueFunctions(void)
 {
     Node* tree = createTree(10, "aaaaa");
     tree = addElement(tree, 10, "bbbbb");
@@ -15,7 +15,7 @@ bool testAddAndGetValueFunction(void)
     return resultOne == 0 && resultTwo != 0;
 }
 
-bool testDeleteAndSearchFunction(void)
+bool testDeleteAndSearchFunctions(void)
 {
     Node* tree = createTree(10, "aaaaa");
     tree = addElement(tree, 12, "bbbbb");
@@ -42,11 +42,11 @@ bool checkNumberOfElements(void)
     tree = addElement(tree, 25, "25");
     tree = deleteElement(tree, 8);
     int count = countElements(tree);
-    deleteTree(tree);
+    tree = deleteTree(tree);
     return count == 3;
 }
 
 bool areTestsPassed(void)
 {
-    return testAddAndGetValueFunction() && testDeleteAndSearchFunction() && checkNumberOfElements();
+    return testAddAndGetValueFunctions() && testDeleteAndSearchFunctions() && checkNumberOfElements();
 }

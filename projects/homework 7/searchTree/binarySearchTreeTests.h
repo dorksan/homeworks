@@ -2,5 +2,5 @@
 
 #include <stdbool.h>
 
-// Тестирование АВЛ-дерева
+// Тестирование дерева поиска
 bool areTestsPassed(void);
