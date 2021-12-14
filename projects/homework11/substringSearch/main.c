@@ -43,9 +43,10 @@ int main()
         return -1;
     }
     kmp(substring, text, positionOfEntry);
+    int lengthOfSubstring = strlen(substring);
     for (int i = 0; i < SIZE; i++)
     {
-        if ((positionOfEntry[0] == 0 && strlen(substring) > 1) || (text[0] != substring[0]))
+        if ((positionOfEntry[0] == 0 && lengthOfSubstring > 1) || (lengthOfSubstring == 1 && (text[0] != substring[0])))
         {
             printf("\nСлово не содержится в тексте.");
             return 10;
