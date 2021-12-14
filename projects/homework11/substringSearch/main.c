@@ -46,7 +46,7 @@ int main()
     int lengthOfSubstring = strlen(substring);
     for (int i = 0; i < SIZE; i++)
     {
-        if ((positionOfEntry[0] == 0 && lengthOfSubstring > 1) || (lengthOfSubstring == 1 && (text[0] != substring[0])))
+        if ((positionOfEntry[0] == 0 && lengthOfSubstring > 1) || (lengthOfSubstring == 1 && text[0] != substring[0] && positionOfEntry[0] == 0))
         {
             printf("\nСлово не содержится в тексте.");
             return 10;
