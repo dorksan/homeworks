@@ -5,7 +5,6 @@
 typedef enum State
 {
     FIRST_SYMBOL_NAME,
-    NAME_SIGN,
     NAME_LETTER,
     DOG,
     FIRST_SYMBOL_ADDRESS,
@@ -51,6 +50,10 @@ bool lexer(const char* email)
         {
         case FIRST_SYMBOL_NAME:
             state = ((isLetter(currentSymbol) || isDigit(currentSymbol)) && !(isSign(currentSymbol))) ? NAME_LETTER : -1;
+            if (index == length)
+            {
+                return !result;
+            }
             index++;
             break;
         case NAME_LETTER:
@@ -64,19 +67,28 @@ bool lexer(const char* email)
                 index++;
             }
             break;
-        case NAME_SIGN:
-            state = (isSign(currentSymbol)) ? NAME_SIGN : NAME_LETTER;
-            break;
         case DOG:
             state = (currentSymbol == '@') ? FIRST_SYMBOL_ADDRESS : -1;
+            if (index == length)
+            {
+                return !result;
+            }
             index++;
             break;
         case FIRST_SYMBOL_ADDRESS:
             state = (isLetter(currentSymbol) || isDigit(currentSymbol)) ? ADDRESS : -1;
+            if (index == length)
+            {
+                return !result;
+            }
             index++;
             break;
         case ADDRESS:
             state = (isLetter(currentSymbol) || isDigit(currentSymbol) || (currentSymbol == '-')) ? ADDRESS : POINT;
+            if (index == length)
+            {
+                return !result;
+            }
             if (state == ADDRESS)
             {
                 index++;
@@ -84,6 +96,10 @@ bool lexer(const char* email)
             break;
         case POINT:
             state = (currentSymbol == '.') ? DOMAIN : -1;
+            if (index == length)
+            {
+                return !result;
+            }
             index++;
             break;
         case DOMAIN:
