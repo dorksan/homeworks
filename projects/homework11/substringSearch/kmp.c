@@ -22,14 +22,7 @@ void prefixFunction(const char* string, int* prefix, const int sizeOfSubstring, 
         }
         if (i == sizeOfSubstring || j == sizeOfSubstring + 1)
         {
-            if (string[i] != string[0])
-            {
-                j = 0;
-            }
-            else
-            {
-                j = 1;
-            }
+            j = (string[i] != string[0]) ? 0 : 1;
         }
         prefix[i] = j;
     }
@@ -60,8 +53,9 @@ void kmp(const char* substring, const char* text, int* positionOfEntry)
     {
         if (prefix[lengthOfSubstring + i] == lengthOfSubstring)
         {
-            positionOfEntry[count++] = i;
+            positionOfEntry[count++] = i - lengthOfSubstring + 1;
         }
     }
+    free(string);
     free(prefix);
 }

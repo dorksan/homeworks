@@ -9,7 +9,7 @@
 
 int main()
 {
-    if (!areTestsPassed())
+    if (!isTestPassed())
     {
         return 111;
     }
@@ -30,13 +30,9 @@ int main()
         pointer++;
     }
     fclose(file);
-    char* substring = calloc(SIZE_OF_SUBSTRING, sizeof(char));
-    if (substring == NULL)
-    {
-        return -1;
-    }
+    char substring[SIZE_OF_SUBSTRING] = { 0 };
     printf("Введите строку: ");
-    scanf_s("%s", substring, SIZE_OF_SUBSTRING);
+    scanf_s("%s", &substring, SIZE_OF_SUBSTRING);
     int* positionOfEntry = calloc(SIZE, sizeof(int));
     if (positionOfEntry == NULL)
     {
@@ -62,5 +58,4 @@ int main()
     }
     free(positionOfEntry);
     free(text);
-    free(substring);
 }

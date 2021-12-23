@@ -3,4 +3,4 @@
 #include <stdbool.h>
 
 // Тестирование алгоритма КМП
-bool areTestsPassed();
+bool isTestPassed();
