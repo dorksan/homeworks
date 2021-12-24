@@ -15,74 +15,65 @@ typedef enum State
 
 bool isDigit(char symbol)
 {
-    return (symbol >= '0' && symbol <= '9');
+    return symbol >= '0' && symbol <= '9';
 }
 
-bool lexer(const char* number)
+bool analyze(const char* number)
 {
-    int index = 0;
-    bool result = true;
+    int index = -1;
     char currentSymbol = number[index];
     State state = DIGIT;
-    int length = strlen(number) - 1;
-    while (currentSymbol != '\0')
+    int length = strlen(number);
+    for (int i = 0; i < length; i++)
     {
+        index++;
         currentSymbol = number[index];
-        switch (state)
+        switch(state)
         {
         case DIGIT:
             state = (isDigit(currentSymbol)) ? DIGIT_ONE : -1;
-            index++;
             break;
         case DIGIT_ONE:
             state = (isDigit(currentSymbol)) ? DIGIT_ONE : POINT;
-            if (state == DIGIT_ONE)
+            if (state == POINT)
             {
-                index++;
-            }
-            break;
-        case POINT:
-            state = (currentSymbol == '.') ? DIGIT_TWO : EXPONENT;
-            if (index == length)
-            {
-                return !result;
-            }
-            if (state == DIGIT_TWO)
-            {
-                index++;
+                state = (currentSymbol == '.') ? DIGIT_TWO : EXPONENT;
+                if (state == EXPONENT)
+                {
+                    state = (currentSymbol == 'E') ? SIGN : -1;
+                }
+                if (index + 1 == length)
+                {
+                    return false;
+                }
             }
             break;
         case DIGIT_TWO:
             state = (isDigit(currentSymbol)) ? DIGIT_TWO : EXPONENT;
-            if (state == DIGIT_TWO)
+            if (state == EXPONENT)
             {
-                index++;
+                state = (currentSymbol == 'E') ? SIGN : -1;
+                if (index + 1 == length)
+                {
+                    return false;
+                }
             }
-            break;
-        case EXPONENT:
-            state = (currentSymbol == 'E') ? SIGN : DIGIT_THREE;
-            if (index == length)
-            {
-                return !result;
-            }
-            index++;
             break;
         case SIGN:
             state = (currentSymbol == '+' || currentSymbol == '-') ? DIGIT_THREE : -1;
-            index++;
-            break;
-        case DIGIT_THREE:
-            state = (isDigit(currentSymbol)) ? DIGIT_THREE : 10;
-            if (state == DIGIT_THREE)
+            if (index + 1 == length)
             {
-                index++;
+                return false;
             }
             break;
+        case DIGIT_THREE:
+            state = (isDigit(currentSymbol)) ? DIGIT_THREE : -1;
+            break;
         case -1:
-            return !result;
+            return false;
         default:
             break;
         }
     }
-    return result;
+    return true;
 }
