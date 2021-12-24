@@ -1,3 +1,4 @@
+#include "matrix.h"
 #include <stdio.h>
 
 #define SIZE 100
@@ -32,4 +33,5 @@ int main()
     {
         fprintf(output, "%d ", elements[i]);
     }
+    printf("Обход завершен.");
 }
