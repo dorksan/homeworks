@@ -1,0 +1,28 @@
+#include "parseTree.h"
+#include "testParseTree.h"
+#include <stdio.h>
+#include <stdlib.h>
+
+#define SIZE 50
+
+int main()
+{
+    if (!areTestsPassed())
+    {
+        return 111;
+    }
+    FILE* file = fopen("file.txt", "r");
+    if (file == NULL)
+    {
+        return -1;
+    }
+    char inputString[SIZE] = { 0 };
+    fgets(inputString, SIZE, file);
+    fclose(file);
+    Node* node = createTree(inputString);
+    char outputString[SIZE] = { '\0' };
+    getString(node, outputString, SIZE);
+    printf("Исходное выражение: %s\n", outputString);
+    printf("Результат выражения: %d\n", getResult(node));
+    deleteTreeRecursive(node);
+}
